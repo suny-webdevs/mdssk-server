@@ -2,10 +2,13 @@
 import Project from "@/models/portfolio.model"
 import { NextResponse } from "next/server"
 
-export const GET = async ({ params }: { params: { projectId: string } }) => {
+export const GET = async (
+  req: Request,
+  { params }: { params: Promise<{ projectId: string }> }
+) => {
   try {
-    const id = params.projectId
-    const res = await Project.findById(id)
+    const { projectId } = await params
+    const res = await Project.findById(projectId)
     console.log({ res })
 
     return NextResponse.json(
@@ -24,13 +27,13 @@ export const GET = async ({ params }: { params: { projectId: string } }) => {
 
 export const PATCH = async (
   req: Request,
-  { params }: { params: { projectId: string } }
+  { params }: { params: Promise<{ projectId: string }> }
 ) => {
   try {
     const data = await req.json()
-    const id = params.projectId
+    const { projectId } = await params
 
-    const res = await Project.findByIdAndUpdate(id, data)
+    const res = await Project.findByIdAndUpdate(projectId, data)
     console.log({ res })
 
     return NextResponse.json(
@@ -47,10 +50,13 @@ export const PATCH = async (
   }
 }
 
-export const DELETE = async ({ params }: { params: { projectId: string } }) => {
+export const DELETE = async (
+  req: Request,
+  { params }: { params: Promise<{ projectId: string }> }
+) => {
   try {
-    const id = params.projectId
-    const res = await Project.findByIdAndDelete(id)
+    const { projectId } = await params
+    const res = await Project.findByIdAndDelete(projectId)
     console.log({ res })
 
     return NextResponse.json(

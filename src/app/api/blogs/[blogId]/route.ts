@@ -2,10 +2,17 @@
 import Blog from "@/models/blog.model"
 import { NextResponse } from "next/server"
 
-export const GET = async ({ params }: { params: { blogId: string } }) => {
+export const GET = async (
+  req: Request,
+  {
+    params,
+  }: {
+    params: Promise<{ blogId: string }>
+  }
+) => {
   try {
-    const id = params.blogId
-    const res = await Blog.findById(id)
+    const { blogId } = await params
+    const res = await Blog.findById(blogId)
     console.log({ res })
 
     return NextResponse.json(
@@ -24,13 +31,13 @@ export const GET = async ({ params }: { params: { blogId: string } }) => {
 
 export const PATCH = async (
   req: Request,
-  { params }: { params: { blogId: string } }
+  { params }: { params: Promise<{ blogId: string }> }
 ) => {
   try {
     const data = await req.json()
-    const id = params.blogId
+    const { blogId } = await params
 
-    const res = await Blog.findByIdAndUpdate(id, data)
+    const res = await Blog.findByIdAndUpdate(blogId, data)
     console.log({ res })
 
     return NextResponse.json(
@@ -47,10 +54,13 @@ export const PATCH = async (
   }
 }
 
-export const DELETE = async ({ params }: { params: { blogId: string } }) => {
+export const DELETE = async (
+  req: Request,
+  { params }: { params: Promise<{ blogId: string }> }
+) => {
   try {
-    const id = params.blogId
-    const res = await Blog.findByIdAndDelete(id)
+    const { blogId } = await params
+    const res = await Blog.findByIdAndDelete(blogId)
     console.log({ res })
 
     return NextResponse.json(
