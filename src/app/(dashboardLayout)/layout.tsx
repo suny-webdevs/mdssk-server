@@ -1,4 +1,3 @@
-// import { AppSidebar } from "@/components/layouts/Sidebar"
 import { AppSidebar } from "@/components/layouts/Sidebar"
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import type { Metadata } from "next"

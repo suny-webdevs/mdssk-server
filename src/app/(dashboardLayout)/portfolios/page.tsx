@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import SwdTooltip from "@/components/ui/SwdTooltip"
 import {
   Table,
   TableBody,
@@ -7,6 +8,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { PenLine, Trash2 } from "lucide-react"
+import Link from "next/link"
 
 const invoices = [
   {
@@ -24,7 +27,9 @@ const invoices = [
 const PortfolioPage = () => {
   return (
     <div>
-      <Button> Add Portfolio</Button>
+      <Link href={"/portfolios/add"}>
+        <Button>Add Portfolio</Button>
+      </Link>
       <Table className="mt-10">
         <TableHeader>
           <TableRow>
@@ -39,18 +44,24 @@ const PortfolioPage = () => {
               <TableCell className="font-medium">{invoice.title}</TableCell>
               <TableCell>{invoice.category}</TableCell>
               <TableCell className="flex items-center gap-3 justify-end">
-                <Button
-                  size="sm"
-                  className="text-green-500"
-                >
-                  Update
-                </Button>
-                <Button
-                  size="sm"
-                  className="text-red-500"
-                >
-                  Delete
-                </Button>
+                <SwdTooltip text="Update">
+                  <Link href={"/portfolios/update"}>
+                    <Button
+                      size="sm"
+                      className="text-white"
+                    >
+                      <PenLine />
+                    </Button>
+                  </Link>
+                </SwdTooltip>
+                <SwdTooltip text="Delete">
+                  <Button
+                    size="sm"
+                    className="text-red-500"
+                  >
+                    <Trash2 />
+                  </Button>
+                </SwdTooltip>
               </TableCell>
             </TableRow>
           ))}
