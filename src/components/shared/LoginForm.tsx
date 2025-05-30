@@ -25,7 +25,7 @@ const LoginForm = () => {
     try {
       await signIn("credentials", {
         redirect: true,
-        callbackUrl: "/dashboard",
+        callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard`,
         email,
         password,
       })
