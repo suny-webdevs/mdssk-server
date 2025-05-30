@@ -3,7 +3,7 @@ export type TUser = {
   name: string
   email: string
   password: string
-  photo?: string
+  image?: string
   role: "Admin"
   createdAt?: Date
   updatedAt?: Date

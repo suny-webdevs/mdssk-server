@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import { getUser } from "@/utils/actions"
 import { authOptions } from "@/utils/authOptions"
 import { ArrowUpRight, ShieldCheck } from "lucide-react"
 import { getServerSession } from "next-auth"
@@ -7,18 +8,21 @@ import Link from "next/link"
 
 const DashboardPage = async () => {
   const session = await getServerSession(authOptions)
+  const user = await getUser(session?.user.email as string)
 
   return (
     <div className="flex flex-col justify-center gap-5">
       <div className="relative h-[40rem] lg:h-96 w-full rounded-3xl p-5 flex items-center justify-center bg-black/80">
         <span className="absolute top-5 left-5 flex items-center gap-2 px-2 py-1 rounded-lg bg-green-100/10 border border-green-200/30 text-green-500 tracking-wider">
           <ShieldCheck className="text-xs" />
-          <span className="font-semibold">Admin</span>
+          <span className="font-semibold">
+            {session?.user.role === "Admin" && user?.data?.role}
+          </span>
         </span>
         <div className="flex flex-col items-center justify-center gap-1">
           <Image
             src={
-              session?.user?.image ||
+              user?.data?.image ||
               "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             }
             alt="Profile image"
@@ -28,7 +32,7 @@ const DashboardPage = async () => {
           />
           <div className="flex flex-col items-center justify-center gap-2 md:gap-8">
             <h1 className="text-4xl md:text-6xl lg:text-7xl text-white text-center font-bold">
-              {session?.user?.name}
+              {user?.data?.name}
             </h1>
             <Link href={"/profile"}>
               <Button

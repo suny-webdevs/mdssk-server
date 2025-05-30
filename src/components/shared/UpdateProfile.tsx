@@ -3,15 +3,21 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { UserRoundPen } from "lucide-react"
 
-const UpdateProfile = () => {
+import { getUser } from "@/utils/actions"
+import { authOptions } from "@/utils/authOptions"
+import { UserRoundPen } from "lucide-react"
+import { getServerSession } from "next-auth"
+import UpdateForm from "./UpdateForm"
+
+const UpdateProfile = async () => {
+  const session = await getServerSession(authOptions)
+  const user = await getUser(session?.user?.email as string)
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -31,35 +37,7 @@ const UpdateProfile = () => {
             done.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Input
-              id="name"
-              defaultValue="Md Suny Shaikh"
-              placeholder="Name"
-              className="col-span-3"
-            />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Input
-              id="email"
-              defaultValue="mdsunyshaikh@gmail.com"
-              placeholder="email"
-              className="col-span-3"
-            />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Input
-              id="photo"
-              defaultValue=""
-              placeholder="Photo URL"
-              className="col-span-3"
-            />
-          </div>
-        </div>
-        <DialogFooter>
-          <Button type="submit">Update</Button>
-        </DialogFooter>
+        <UpdateForm user={user} />
       </DialogContent>
     </Dialog>
   )

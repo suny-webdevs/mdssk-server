@@ -5,6 +5,10 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
 
 export const authOptions: AuthOptions = {
+  pages: {
+    signIn: "/",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
     maxAge: 1 * 24 * 60 * 60,
@@ -25,24 +29,36 @@ export const authOptions: AuthOptions = {
 
         const { email, password } = credentials
 
-        const user = await User.findOne({ email })
+        const currentUser = await User.findOne({ email })
 
-        if (!user) {
-          throw new Error("User not found")
+        if (!currentUser) {
+          return null
         }
 
-        const isPasswordMatched = await bcrypt.compare(password, user.password)
+        const isPasswordMatched = await bcrypt.compare(
+          password,
+          currentUser?.password
+        )
 
         if (!isPasswordMatched) {
-          throw new Error("Password didn't match")
+          return null
         }
 
-        return user
+        return currentUser
       },
     }),
   ],
-  pages: {
-    signIn: "/",
+  callbacks: {
+    async jwt({ token, account, user }) {
+      if (account) {
+        token.role = user.role
+      }
+      return token
+    },
+    async session({ session, token }) {
+      session.user.role = token.role
+
+      return session
+    },
   },
-  secret: process.env.NEXTAUTH_SECRET,
 }
