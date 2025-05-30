@@ -9,7 +9,6 @@ export const GET = async (
   try {
     const { projectId } = await params
     const res = await Project.findById(projectId)
-    console.log({ res })
 
     return NextResponse.json(
       {
@@ -34,7 +33,6 @@ export const PATCH = async (
     const { projectId } = await params
 
     const res = await Project.findByIdAndUpdate(projectId, data)
-    console.log({ res })
 
     return NextResponse.json(
       {
@@ -57,7 +55,6 @@ export const DELETE = async (
   try {
     const { projectId } = await params
     const res = await Project.findByIdAndDelete(projectId)
-    console.log({ res })
 
     return NextResponse.json(
       {

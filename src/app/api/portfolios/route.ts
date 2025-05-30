@@ -6,10 +6,8 @@ import { NextResponse } from "next/server"
 export const POST = async (req: Request) => {
   try {
     const data: TPortfolioProject = await req.json()
-    console.log({ data })
 
     const res = await Project.create(data)
-    console.log({ res })
 
     return NextResponse.json(
       {
@@ -28,7 +26,6 @@ export const POST = async (req: Request) => {
 export const GET = async () => {
   try {
     const res = await Project.find()
-    console.log({ res })
 
     return NextResponse.json(
       {
