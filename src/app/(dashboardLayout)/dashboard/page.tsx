@@ -1,9 +1,13 @@
 import { Button } from "@/components/ui/button"
+import { authOptions } from "@/utils/authOptions"
 import { ArrowUpRight, ShieldCheck } from "lucide-react"
+import { getServerSession } from "next-auth"
 import Image from "next/image"
 import Link from "next/link"
 
-const DashboardPage = () => {
+const DashboardPage = async () => {
+  const session = await getServerSession(authOptions)
+
   return (
     <div className="flex flex-col justify-center gap-5">
       <div className="relative h-[40rem] lg:h-96 w-full rounded-3xl p-5 flex items-center justify-center bg-black/80">
@@ -14,6 +18,7 @@ const DashboardPage = () => {
         <div className="flex flex-col items-center justify-center gap-1">
           <Image
             src={
+              session?.user?.image ||
               "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             }
             alt="Profile image"
@@ -23,7 +28,7 @@ const DashboardPage = () => {
           />
           <div className="flex flex-col items-center justify-center gap-2 md:gap-8">
             <h1 className="text-4xl md:text-6xl lg:text-7xl text-white text-center font-bold">
-              Md Suny Shaikh
+              {session?.user?.name}
             </h1>
             <Link href={"/profile"}>
               <Button

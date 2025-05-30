@@ -1,5 +1,5 @@
 import { User } from "@/models/user.model"
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 import { NextResponse } from "next/server"
 import jwt, { JwtPayload } from "jsonwebtoken"
 import { connectToDatabase } from "@/lib/mongoose"
@@ -44,7 +44,7 @@ export const POST = async (req: Request) => {
       {
         success: true,
         message: "Login successful",
-        data: { token: `Bearer ${token}` },
+        data: { token },
       },
       { status: 200 }
     )

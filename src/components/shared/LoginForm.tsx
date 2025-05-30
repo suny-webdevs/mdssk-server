@@ -6,12 +6,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { loginValidationSchema } from "@/lib/validations/login.validation"
 import { Button } from "../ui/button"
-import { loginUser } from "@/utils/actions"
+import { signIn } from "next-auth/react"
 import { toast } from "sonner"
-import { useRouter } from "next/navigation"
 
 const LoginForm = () => {
-  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -25,11 +23,13 @@ const LoginForm = () => {
     password,
   }) => {
     try {
-      const res = await loginUser({ email, password })
-      if (res.success) {
-        router.push("/dashboard")
-        toast.success("Login successful")
-      }
+      await signIn("credentials", {
+        redirect: true,
+        callbackUrl: "/dashboard",
+        email,
+        password,
+      })
+      toast.success("Login successful")
     } catch (error: any) {
       console.log(error)
       throw new Error(error)

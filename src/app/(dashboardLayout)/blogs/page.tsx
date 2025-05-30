@@ -9,7 +9,12 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { PenLine, Trash2 } from "lucide-react"
+import { Metadata } from "next"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "Blogs | Admin - Suny-WebDevs",
+}
 
 const invoices = [
   {

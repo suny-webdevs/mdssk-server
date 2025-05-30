@@ -1,6 +1,11 @@
 import UpdateProfile from "@/components/shared/UpdateProfile"
 import { ShieldCheck } from "lucide-react"
+import { Metadata } from "next"
 import Image from "next/image"
+
+export const metadata: Metadata = {
+  title: "Profile | Admin - Suny-WebDevs",
+}
 
 const ProfilePage = () => {
   return (
