@@ -8,8 +8,12 @@ import { loginValidationSchema } from "@/lib/validations/login.validation"
 import { Button } from "../ui/button"
 import { signIn } from "next-auth/react"
 import { toast } from "sonner"
+import { useSearchParams } from "next/navigation"
 
 const LoginForm = () => {
+  const searchParams = useSearchParams()
+  const redirectedPath = searchParams.get("redirect")
+
   const {
     register,
     handleSubmit,
@@ -24,10 +28,10 @@ const LoginForm = () => {
   }) => {
     try {
       await signIn("credentials", {
-        redirect: true,
-        callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard`,
         email,
         password,
+        redirect: true,
+        callbackUrl: redirectedPath ? redirectedPath : "/",
       })
       toast.success("Login successful")
     } catch (error: any) {
