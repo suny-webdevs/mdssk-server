@@ -17,18 +17,16 @@ export const authOptions: AuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
+        email: {},
+        password: {},
       },
       async authorize(credentials) {
-        await connectToDatabase()
-
         if (!credentials) {
           return null
         }
-
         const { email, password } = credentials
 
+        await connectToDatabase()
         const currentUser = await User.findOne({ email })
 
         if (!currentUser) {

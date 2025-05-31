@@ -35,8 +35,7 @@ const LoginForm = () => {
       })
       toast.success("Login successful")
     } catch (error: any) {
-      console.log(error)
-      throw new Error(error)
+      toast.error(error)
     }
   }
 
