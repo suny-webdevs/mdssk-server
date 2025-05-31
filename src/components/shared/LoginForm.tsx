@@ -31,7 +31,7 @@ const LoginForm = () => {
         email,
         password,
         redirect: true,
-        callbackUrl: redirectedPath ? redirectedPath : "/",
+        callbackUrl: redirectedPath ? redirectedPath : "/dashboard",
       })
       toast.success("Login successful")
     } catch (error: any) {
