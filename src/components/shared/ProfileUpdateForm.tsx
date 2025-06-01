@@ -23,13 +23,13 @@ const ProfileUpdateForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-5 max-w-2xl mx-auto p-5"
+      className="space-y-5 w-full p-5"
     >
       {/* Biography */}
       <div>
         <Textarea
           placeholder="Biography"
-          {...(register("biography"), require)}
+          {...register("biography")}
         />
         {errors.biography && (
           <p className="text-red-500 text-sm">{errors.biography.message}</p>

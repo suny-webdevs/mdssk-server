@@ -17,7 +17,7 @@ export default function RootLayout({
       <div className="flex items-start gap-2">
         <AppSidebar />
       </div>
-      <main className="w-full m-5 flex flex-col gap-5">
+      <main className="w-full min-h-screen m-5 flex flex-col gap-5">
         <div className="flex items-center gap-5">
           <SidebarTrigger className="p-0 m-0 border" />
           <DynamicBreadcrumb />
