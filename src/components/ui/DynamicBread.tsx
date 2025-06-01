@@ -27,7 +27,7 @@ const DynamicBreadcrumb = () => {
             </BreadcrumbLink>
           )}
         </BreadcrumbItem>
-        <BreadcrumbSeparator />
+        {paths.length > 1 && <BreadcrumbSeparator />}
         {paths.length > 1 && (
           <BreadcrumbItem>
             <span>{capitalize(paths[1])}</span>
