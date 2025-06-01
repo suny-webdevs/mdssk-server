@@ -1,2 +1,5 @@
 export * from "./user.type"
 export * from "./login.type"
+export * from "./profile.type"
+export * from "./portfolio.type"
+export * from "./blog.type"
