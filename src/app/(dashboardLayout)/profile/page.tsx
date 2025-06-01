@@ -17,7 +17,7 @@ const ProfilePage = async () => {
   const user = await getUser(session?.user.email as string)
 
   return (
-    <div className="size-full flex flex-col justify-center gap-5">
+    <div className="size-full flex flex-col justify-center gap-2 md:gap-5">
       <div className="relative h-[40rem] w-full rounded-3xl p-5 flex items-center justify-center bg-black/80">
         <span className="absolute top-7 left-7 flex items-center gap-2 px-2 py-1 rounded-lg bg-green-100/10 border border-green-200/30 text-green-500 tracking-wider">
           <ShieldCheck className="text-xs" />

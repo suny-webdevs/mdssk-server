@@ -14,12 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <SidebarProvider>
-      <div className="flex items-start gap-2">
-        <AppSidebar />
-      </div>
-      <main className="w-full min-h-screen m-5 flex flex-col gap-5">
+      <AppSidebar />
+      <main className="w-full min-h-screen m-2 md:m-5 flex flex-col gap-4">
         <div className="flex items-center gap-5">
-          <SidebarTrigger className="p-0 m-0 border" />
+          <SidebarTrigger className="border" />
           <DynamicBreadcrumb />
         </div>
         {children}
