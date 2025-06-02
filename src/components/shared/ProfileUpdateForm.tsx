@@ -6,6 +6,7 @@ import { profileValidationSchema } from "@/lib/validations/profile.validation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
+import { Label } from "../ui/label"
 
 const ProfileUpdateForm = () => {
   const {
@@ -27,6 +28,7 @@ const ProfileUpdateForm = () => {
     >
       {/* Biography */}
       <div>
+        <Label>Biography</Label>
         <Textarea
           placeholder="Biography"
           {...register("biography")}
@@ -38,65 +40,14 @@ const ProfileUpdateForm = () => {
 
       {/* Skills */}
       <div className="flex flex-col gap-2">
+        <Label>Skills</Label>
         <Input
-          placeholder="Tech Skills (comma separated)"
+          placeholder="Tech Skills (space separated)"
           {...register("skills.0.techSkills")}
         />
         <Input
-          placeholder="Soft Skills (comma separated)"
+          placeholder="Soft Skills (space separated)"
           {...register("skills.0.softSkills")}
-        />
-      </div>
-
-      {/* Education */}
-      <div className="flex flex-col gap-2">
-        <Input
-          placeholder="Institute"
-          {...register("education.0.institute")}
-        />
-        <Input
-          placeholder="Degree"
-          {...register("education.0.degree")}
-        />
-        <Input
-          placeholder="CGPA"
-          {...register("education.0.cgpa")}
-        />
-      </div>
-
-      {/* Services */}
-      <div className="flex flex-col gap-2">
-        <Input
-          placeholder="Service Title"
-          {...register("services.0.title")}
-        />
-        <Textarea
-          placeholder="Service Description"
-          {...register("services.0.description")}
-        />
-      </div>
-
-      {/* Certification */}
-      <div className="flex flex-col gap-2">
-        <Input
-          placeholder="Certification Title"
-          {...register("certification.0.title")}
-        />
-        <Input
-          placeholder="Certification Institute"
-          {...register("certification.0.institute")}
-        />
-      </div>
-
-      {/* Social Links */}
-      <div className="flex flex-col gap-2">
-        <Input
-          placeholder="Social Label"
-          {...register("socialLinks.0.label")}
-        />
-        <Input
-          placeholder="Social Link"
-          {...register("socialLinks.0.link")}
         />
       </div>
 

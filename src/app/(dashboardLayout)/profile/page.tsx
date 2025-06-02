@@ -18,10 +18,10 @@ const ProfilePage = async () => {
 
   return (
     <div className="size-full flex flex-col justify-center gap-2 md:gap-5">
-      <div className="relative h-[40rem] w-full rounded-3xl p-5 flex items-center justify-center bg-black/80">
+      <div className="relative h-[40rem] w-full rounded-3xl p-5 flex items-center justify-center bg-gradient-to-b from-black via-black/90 to-black/80">
         <span className="absolute top-7 left-7 flex items-center gap-2 px-2 py-1 rounded-lg bg-green-100/10 border border-green-200/30 text-green-500 tracking-wider">
           <ShieldCheck className="text-xs" />
-          <span className="font-semibold">
+          <span className="font-semibold select-none">
             {session?.user.role === "Admin" && user?.data?.role}
           </span>
         </span>
@@ -37,7 +37,7 @@ const ProfilePage = async () => {
             alt="Profile image"
             width={100}
             height={100}
-            className="rounded-full object-cover border-2 border-white size-20 md:size-36"
+            className="rounded-full object-cover border-2 border-white size-20 md:size-36 select-none"
           />
           <div className="flex flex-col items-center justify-center gap-2 md:gap-5">
             <h1 className="text-4xl md:text-6xl lg:text-7xl text-white text-center font-bold">
@@ -49,12 +49,12 @@ const ProfilePage = async () => {
           </div>
         </div>
       </div>
-      <div className="relative w-full h-full rounded-3xl pb-5 pt-10 lg:pt-20 bg-black/80">
+      <div className="relative w-full h-full rounded-3xl px-5 pt-20 md:pt-10 lg:pt-20 bg-gradient-to-b from-black/80 via-black/70 to-black/50">
         <span className="absolute top-7 right-7">
           <ProfileUpdateDrawer />
         </span>
         <div className={styles.card}>
-          <div>
+          <div className={styles.card_body}>
             <h1 className={styles.card_header}>Biography</h1>
             <p className={styles.card_normal_text}>
               Motivated MERN Stack Developer skilled in building dynamic,
@@ -62,7 +62,7 @@ const ProfilePage = async () => {
               performance optimization, and seamless user experiences.
             </p>
           </div>
-          <div>
+          <div className={styles.card_body}>
             <h1 className={styles.card_header}>Skills</h1>
             <div className={styles.card_normal_text}>
               <p>
@@ -76,7 +76,7 @@ const ProfilePage = async () => {
               </p>
             </div>
           </div>
-          <div>
+          <div className={styles.card_body}>
             <h1 className={styles.card_header}>Education</h1>
             <div className={styles.card_normal_text}>
               <p>
@@ -92,7 +92,7 @@ const ProfilePage = async () => {
               </p>
             </div>
           </div>
-          <div>
+          <div className={styles.card_body}>
             <h1 className={styles.card_header}>Services</h1>
             <div className={styles.card_normal_text}>
               <p className="font-bold">1. Full Stack Development</p>
@@ -102,7 +102,7 @@ const ProfilePage = async () => {
               </p>
             </div>
           </div>
-          <div>
+          <div className={styles.card_body}>
             <h1 className={styles.card_header}>Certification</h1>
             <div className={styles.card_normal_text}>
               <p>
@@ -114,7 +114,7 @@ const ProfilePage = async () => {
               </p>
             </div>
           </div>
-          <div>
+          <div className={styles.card_body}>
             <h1 className={styles.card_header}>Social Links</h1>
             <div className={styles.card_normal_text}>
               <p>

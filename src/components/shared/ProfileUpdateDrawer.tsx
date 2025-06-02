@@ -20,7 +20,7 @@ export function ProfileUpdateDrawer() {
       <DrawerTrigger asChild>
         <Button
           variant="ghost"
-          className="bg-transparent hover:bg-transparent"
+          className="bg-transparent hover:bg-transparent select-none"
         >
           <UserRoundPen className="text-white text-xl" />
           <span className="text-base text-white">Update</span>

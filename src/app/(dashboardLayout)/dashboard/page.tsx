@@ -12,7 +12,7 @@ const DashboardPage = async () => {
 
   return (
     <div className="flex flex-col justify-center gap-2 md:gap-5">
-      <div className="relative h-[40rem] lg:h-96 w-full rounded-3xl p-5 flex items-center justify-center bg-black/80">
+      <div className="relative h-[40rem] lg:h-96 w-full rounded-3xl p-5 flex items-center justify-center bg-gradient-to-b from-black via-black/90 to-black/80">
         <span className="absolute top-5 left-5 flex items-center gap-2 px-2 py-1 rounded-lg bg-green-100/10 border border-green-200/30 text-green-500 tracking-wider">
           <ShieldCheck className="text-xs" />
           <span className="font-semibold">
@@ -46,7 +46,7 @@ const DashboardPage = async () => {
         </div>
       </div>
       <div className="w-full flex flex-col lg:flex-row items-center gap-2 md:gap-5">
-        <div className="h-96 w-full rounded-3xl p-5 flex items-center justify-center bg-black/80">
+        <div className="h-96 w-full rounded-3xl p-5 flex items-center justify-center bg-gradient-to-b from-black/80 via-black/70 to-black/60">
           <div className="flex flex-col gap-1 items-center justify-center text-white">
             <div className="flex flex-col items-center gap-5">
               <span className="text-8xl font-bold">
@@ -66,7 +66,7 @@ const DashboardPage = async () => {
             </Link>
           </div>
         </div>
-        <div className="h-96 w-full rounded-3xl p-5 flex items-center justify-center bg-black/80">
+        <div className="h-96 w-full rounded-3xl p-5 flex items-center justify-center bg-gradient-to-b from-black/60 via-black/50 to-black/40 md:from-black/80 md:via-black/70 md:to-black/60">
           <div className="flex flex-col gap-1 items-center justify-center text-white">
             <div className="flex flex-col items-center gap-5">
               <span className="text-8xl font-bold">
