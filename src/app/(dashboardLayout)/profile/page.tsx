@@ -7,10 +7,53 @@ import { getServerSession } from "next-auth"
 import Image from "next/image"
 import styles from "./styles.module.css"
 import { ProfileUpdateDrawer } from "@/components/shared/ProfileUpdateDrawer"
+import { DynamicTable } from "@/components/shared/DynamicTable"
 
 export const metadata: Metadata = {
   title: "Profile | Admin - Suny-WebDevs",
 }
+
+const skills = [
+  {
+    techSkills:
+      "Next.Js, React.Js, Node.Js, TypeScript, Express.Js, Tailwind CSS, Mongoose, MongoDB, PostgreSQL, Prisma",
+    softSkills: "Well communication, Networking, Presentation",
+  },
+]
+
+const educations = [
+  {
+    institute: "Govt P.C Collage, Bagerhat",
+    degree: "BSS",
+    cgpa: 3.5,
+  },
+]
+
+const services = [
+  {
+    title: "Full Stack Development",
+    description:
+      "Bridging front and back—crafting seamless, scalable, and dynamic web solutions.",
+  },
+]
+
+const certifications = [
+  {
+    title: "Full Stack Development",
+    institute: "Programming Hero",
+  },
+]
+
+const socialLinks = [
+  {
+    label: "GitHub",
+    link: "https://github.com/suny-webdevs",
+  },
+  {
+    label: "LinkedIn",
+    link: "https://linkedin.com/in/mdsunyshaikh",
+  },
+]
 
 const ProfilePage = async () => {
   const session = await getServerSession(authOptions)
@@ -49,7 +92,7 @@ const ProfilePage = async () => {
           </div>
         </div>
       </div>
-      <div className="relative w-full h-full rounded-3xl px-5 pt-20 md:pt-10 lg:pt-20 bg-gradient-to-b from-black/80 via-black/70 to-black/50">
+      <div className="relative w-full h-full rounded-3xl px-5 pt-20 bg-gradient-to-b from-black/80 via-black/70 to-black/50">
         <span className="absolute top-7 right-7">
           <ProfileUpdateDrawer />
         </span>
@@ -65,74 +108,50 @@ const ProfilePage = async () => {
           <div className={styles.card_body}>
             <h1 className={styles.card_header}>Skills</h1>
             <div className={styles.card_normal_text}>
-              <p>
-                <span className="font-bold">Tech skills : </span>
-                Next.Js, React.Js, Node.Js, TypeScript, Express.Js, Tailwind
-                CSS, Mongoose, MongoDB, PostgreSQL, Prisma
-              </p>
-              <p>
-                <span className="font-bold">Soft skills : </span>
-                Well communication, Networking, Presentation
-              </p>
+              <DynamicTable
+                tableData={skills}
+                tableHeader={["Tech Skills", "Soft Skills"]}
+              />
             </div>
           </div>
           <div className={styles.card_body}>
             <h1 className={styles.card_header}>Education</h1>
             <div className={styles.card_normal_text}>
-              <p>
-                <span className="font-bold">Institute : </span>GOVT P.C Collage,
-                Bagerhat
-              </p>
-              <p>
-                <span className="font-bold">Degree : </span>BSS Honours, 3rd
-                year
-              </p>
-              <p>
-                <span className="font-bold">CGPA : </span>3.50
-              </p>
+              <DynamicTable
+                tableData={educations}
+                tableHeader={["Institute", "Degree", "CGPA"]}
+                action
+              />
             </div>
           </div>
           <div className={styles.card_body}>
             <h1 className={styles.card_header}>Services</h1>
             <div className={styles.card_normal_text}>
-              <p className="font-bold">1. Full Stack Development</p>
-              <p>
-                Bridging front and back—crafting seamless, scalable, and dynamic
-                web solutions.
-              </p>
+              <DynamicTable
+                tableData={services}
+                tableHeader={["Title", "Description"]}
+                action
+              />
             </div>
           </div>
           <div className={styles.card_body}>
             <h1 className={styles.card_header}>Certification</h1>
             <div className={styles.card_normal_text}>
-              <p>
-                <span className="font-bold">Title : </span>Full Stack
-                Development
-              </p>
-              <p>
-                <span className="font-bold">Institute : </span>Programming Hero
-              </p>
+              <DynamicTable
+                tableData={certifications}
+                tableHeader={["Title", "Institute"]}
+                action
+              />
             </div>
           </div>
           <div className={styles.card_body}>
             <h1 className={styles.card_header}>Social Links</h1>
             <div className={styles.card_normal_text}>
-              <p>
-                <span className="font-bold">Label :</span>GitHub
-              </p>
-              <p>
-                <span className="font-bold">Link : </span>
-                https://github.com/suny-webdevs
-              </p>
-            </div>
-            <div className={styles.card_normal_text}>
-              <p>
-                <span className="font-bold">Label :</span>LinkedIn
-              </p>
-              <p>
-                <span className="font-bold">Link : </span>
-                https://linkedin.com/in/mdsunyshaikh
-              </p>
+              <DynamicTable
+                tableData={socialLinks}
+                tableHeader={["Label", "Link"]}
+                action
+              />
             </div>
           </div>
         </div>

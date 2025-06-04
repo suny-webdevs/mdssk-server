@@ -6,70 +6,70 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Button } from "../ui/button"
+import { PenLine, Trash2 } from "lucide-react"
+import SwdTooltip from "../ui/SwdTooltip"
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-]
+type TDynamicTableProps = {
+  tableData: Record<string, string | number>[]
+  tableHeader: string[]
+  action?: boolean
+}
 
-export function DynamicTable() {
+export function DynamicTable({
+  tableData,
+  tableHeader,
+  action = false,
+}: TDynamicTableProps) {
+  const keys = Object.keys(tableData[0])
+
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">Invoice</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Method</TableHead>
-          <TableHead className="text-right">Amount</TableHead>
+          {tableHeader.map((item, index) => (
+            <TableHead
+              className="text-white font-bold"
+              key={index}
+            >
+              {item}
+            </TableHead>
+          ))}
+          {action && (
+            <TableHead className="text-right text-white">Action</TableHead>
+          )}
         </TableRow>
       </TableHeader>
       <TableBody>
-        {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
-            <TableCell className="font-medium">{invoice.invoice}</TableCell>
-            <TableCell>{invoice.paymentStatus}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+        {tableData.map((data, index) => (
+          <TableRow key={index}>
+            {keys.map((key) => (
+              <TableCell key={key}>
+                {typeof data[key] === "object"
+                  ? JSON.stringify(data[key])
+                  : data[key]}
+              </TableCell>
+            ))}
+            {action && (
+              <TableCell className="flex items-center gap-2 justify-end">
+                <SwdTooltip text="Update">
+                  <Button
+                    size="icon"
+                    className="text-white"
+                  >
+                    <PenLine />
+                  </Button>
+                </SwdTooltip>
+                <SwdTooltip text="Delete">
+                  <Button
+                    size="icon"
+                    className="text-red-500"
+                  >
+                    <Trash2 />
+                  </Button>
+                </SwdTooltip>
+              </TableCell>
+            )}
           </TableRow>
         ))}
       </TableBody>

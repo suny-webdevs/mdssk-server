@@ -9,12 +9,12 @@ export type TEducation = {
   institute: string
   degree: string
   cgpa: string | number
-}[]
+}
 
 export type TServices = {
   title: string
   description: string
-}[]
+}
 
 export type TCertification = {
   title: string
@@ -22,22 +22,22 @@ export type TCertification = {
   institute: string
   image?: string
   file?: string
-}[]
+}
 
 export type TSocialLinks = {
   label: string
   link: string
-}[]
+}
 
 export type TProfile = {
   _id?: Types.ObjectId
   userId: Types.ObjectId
   biography: string
   skills: TSkills
-  education: TEducation
-  services: TServices
-  certification: TCertification
-  socialLinks: TSocialLinks
+  education: Types.ObjectId
+  services: Types.ObjectId
+  certification: Types.ObjectId
+  socialLinks: Types.ObjectId
   createdAt?: Date
   updatedAt?: Date
 }
