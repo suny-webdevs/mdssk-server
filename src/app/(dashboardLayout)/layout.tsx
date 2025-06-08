@@ -1,5 +1,5 @@
 import { AppSidebar } from "@/components/layouts/Sidebar"
-import DynamicBreadcrumb from "@/components/ui/DynamicBread"
+import DynamicBreadcrumb from "@/components/shared/DynamicBread"
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import type { Metadata } from "next"
 
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="w-full min-h-screen m-2 md:m-5 flex flex-col gap-4">
+      <main className="w-full min-h-screen p-2 md:p-5 flex flex-col gap-2">
         <div className="flex items-center gap-5">
           <SidebarTrigger className="border" />
           <DynamicBreadcrumb />

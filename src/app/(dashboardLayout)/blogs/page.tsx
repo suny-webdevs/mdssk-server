@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import SwdTooltip from "@/components/ui/SwdTooltip"
+import SwdTooltip from "@/components/shared/SwdTooltip"
 import {
   Table,
   TableBody,

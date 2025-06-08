@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/table"
 import { Button } from "../ui/button"
 import { PenLine, Trash2 } from "lucide-react"
-import SwdTooltip from "../ui/SwdTooltip"
+import SwdTooltip from "./SwdTooltip"
 
 type TDynamicTableProps = {
   tableData: Record<string, string | number>[]

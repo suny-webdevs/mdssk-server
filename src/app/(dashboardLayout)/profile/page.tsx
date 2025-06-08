@@ -1,4 +1,3 @@
-import UpdateProfile from "@/components/shared/UpdateProfile"
 import { getUser } from "@/utils/actions"
 import { authOptions } from "@/utils/authOptions"
 import { ShieldCheck } from "lucide-react"
@@ -6,8 +5,10 @@ import { Metadata } from "next"
 import { getServerSession } from "next-auth"
 import Image from "next/image"
 import styles from "./styles.module.css"
-import { ProfileUpdateDrawer } from "@/components/shared/ProfileUpdateDrawer"
+import { DynamicDrawer } from "@/components/shared/DynamicDrawer"
 import { DynamicTable } from "@/components/shared/DynamicTable"
+import ProfileUpdateForm from "@/components/shared/ProfileUpdateForm"
+import UpdateForm from "@/components/shared/UpdateForm"
 
 export const metadata: Metadata = {
   title: "Profile | Admin - Suny-WebDevs",
@@ -69,7 +70,7 @@ const ProfilePage = async () => {
           </span>
         </span>
         <span className="absolute top-7 right-7">
-          <UpdateProfile />
+          <DynamicDrawer form={<UpdateForm user={user} />} />
         </span>
         <div className="flex flex-col items-center justify-center gap-1">
           <Image
@@ -94,7 +95,7 @@ const ProfilePage = async () => {
       </div>
       <div className="relative w-full h-full rounded-3xl px-5 pt-20 bg-gradient-to-b from-black/80 via-black/70 to-black/50">
         <span className="absolute top-7 right-7">
-          <ProfileUpdateDrawer />
+          <DynamicDrawer form={<ProfileUpdateForm />} />
         </span>
         <div className={styles.card}>
           <div className={styles.card_body}>

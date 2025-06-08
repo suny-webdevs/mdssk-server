@@ -11,10 +11,14 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
-import ProfileUpdateForm from "./ProfileUpdateForm"
 import { UserRoundPen } from "lucide-react"
+import { ReactNode } from "react"
 
-export function ProfileUpdateDrawer() {
+type TDynamicDrawerProps = {
+  form: ReactNode
+}
+
+export function DynamicDrawer({ form }: TDynamicDrawerProps) {
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -35,9 +39,7 @@ export function ProfileUpdateDrawer() {
               done.
             </DrawerDescription>
           </DrawerHeader>
-          <div className="">
-            <ProfileUpdateForm />
-          </div>
+          {form}
           <DrawerFooter>
             <DrawerClose asChild>
               <Button variant="outline">Cancel</Button>
