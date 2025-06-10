@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { addCertificationValidationSchema } from "@/lib/validations/profile.validation"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
+import { Textarea } from "../ui/textarea"
 
 const AddCertificationForm = () => {
   const {
@@ -35,7 +36,7 @@ const AddCertificationForm = () => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Input
+        <Textarea
           placeholder="Description"
           {...register("description")}
         />

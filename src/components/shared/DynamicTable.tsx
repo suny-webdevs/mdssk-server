@@ -7,19 +7,30 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Button } from "../ui/button"
-import { PenLine, Trash2 } from "lucide-react"
-import SwdTooltip from "./SwdTooltip"
+import { EllipsisVertical } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu"
+import { ReactNode } from "react"
+import { DynamicDrawer } from "./DynamicDrawer"
 
 type TDynamicTableProps = {
   tableData: Record<string, string | number>[]
   tableHeader: string[]
   action?: boolean
+  form?: ReactNode
 }
 
 export function DynamicTable({
   tableData,
   tableHeader,
   action = false,
+  form,
 }: TDynamicTableProps) {
   const keys = Object.keys(tableData[0])
 
@@ -51,23 +62,33 @@ export function DynamicTable({
               </TableCell>
             ))}
             {action && (
-              <TableCell className="flex items-center gap-2 justify-end">
-                <SwdTooltip text="Update">
-                  <Button
-                    size="icon"
-                    className="text-white"
-                  >
-                    <PenLine />
-                  </Button>
-                </SwdTooltip>
-                <SwdTooltip text="Delete">
-                  <Button
-                    size="icon"
-                    className="text-red-500"
-                  >
-                    <Trash2 />
-                  </Button>
-                </SwdTooltip>
+              <TableCell className="flex items-end justify-end">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      size={"icon"}
+                      variant={"ghost"}
+                    >
+                      <EllipsisVertical className="text-sm" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem>
+                        <DynamicDrawer
+                          form={form}
+                          table
+                        />
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem>
+                        <button className="text-red-500 cursor-pointer">
+                          Delete
+                        </button>
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </TableCell>
             )}
           </TableRow>

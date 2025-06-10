@@ -17,20 +17,29 @@ import { ReactNode } from "react"
 type TDynamicDrawerProps = {
   form: ReactNode
   type?: "add" | "update"
+  table?: boolean
 }
 
-export function DynamicDrawer({ form, type = "update" }: TDynamicDrawerProps) {
+export function DynamicDrawer({
+  form,
+  type = "update",
+  table = false,
+}: TDynamicDrawerProps) {
   return (
     <Drawer>
       <DrawerTrigger asChild>
         {type === "update" ? (
-          <Button
-            variant="ghost"
-            className="bg-transparent hover:bg-transparent select-none"
-          >
-            <UserRoundPen className="text-white text-xl" />
-            <span className="text-base text-white">Update</span>
-          </Button>
+          table ? (
+            <button className="text-black cursor-pointer">Update</button>
+          ) : (
+            <Button
+              variant="ghost"
+              className="bg-transparent hover:bg-transparent select-none"
+            >
+              <UserRoundPen className="text-white text-xl" />
+              <span className="text-base text-white">Update</span>
+            </Button>
+          )
         ) : (
           <Button
             size="icon"
@@ -41,6 +50,7 @@ export function DynamicDrawer({ form, type = "update" }: TDynamicDrawerProps) {
             <Plus />
           </Button>
         )}
+        {}
       </DrawerTrigger>
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
