@@ -2,10 +2,12 @@ import { z } from "zod"
 
 // 🎯 Reusable Field Validations
 const requiredString = (field: string) =>
-  z.string().min(1, `${field} is required`)
+  z
+    .string({ message: `${field} must be string` })
+    .min(1, `Empty field couldn't update`)
 
-export const profileValidationSchema = z.object({
-  biography: requiredString("Biography"),
+export const updateProfileValidationSchema = z.object({
+  biography: requiredString("Biography").optional(),
 
   skills: z
     .array(
@@ -14,44 +16,50 @@ export const profileValidationSchema = z.object({
         softSkills: requiredString("Soft skills"),
       })
     )
-    .min(1, "Skills is required"),
+    .min(1, "Skills is required")
+    .optional(),
+})
 
-  education: z
-    .array(
-      z.object({
-        institute: requiredString("Institute"),
-        degree: requiredString("Degree"),
-        cgpa: z.union([z.string().min(1), z.number()]),
-      })
-    )
-    .min(1, "Education is required"),
+export const addEducationValidationSchema = z.object({
+  institute: requiredString("Institute"),
+  degree: requiredString("Degree"),
+  cgpa: requiredString("CGPA"),
+})
+export const updateEducationValidationSchema = z.object({
+  institute: requiredString("Institute").optional(),
+  degree: requiredString("Degree").optional(),
+  cgpa: requiredString("CGPA").optional(),
+})
 
-  services: z
-    .array(
-      z.object({
-        title: requiredString("Service title"),
-        description: requiredString("Service description"),
-      })
-    )
-    .min(1, "Services is required"),
+export const addServiceValidationSchema = z.object({
+  title: requiredString("Title"),
+  description: requiredString("Description"),
+})
+export const updateServiceValidationSchema = z.object({
+  title: requiredString("Title").optional(),
+  description: requiredString("Description").optional(),
+})
 
-  certification: z
-    .array(
-      z.object({
-        title: requiredString("Certification title"),
-        institute: requiredString("Certification institute"),
-        image: z.string().optional(),
-        file: z.string().optional(),
-      })
-    )
-    .min(1, "Certification is required"),
+export const addCertificationValidationSchema = z.object({
+  title: requiredString("Title"),
+  description: z.string().optional(),
+  institute: requiredString("Institute"),
+  image: z.string().url().optional(),
+  file: z.string().optional(),
+})
+export const updateCertificationValidationSchema = z.object({
+  title: requiredString("Title").optional(),
+  description: z.string().optional(),
+  institute: requiredString("Institute").optional(),
+  image: z.string().url().optional(),
+  file: z.string().optional(),
+})
 
-  socialLinks: z
-    .array(
-      z.object({
-        label: requiredString("Social link label"),
-        link: requiredString("Social link"),
-      })
-    )
-    .min(1, "Social link is required"),
+export const addSocialLinkValidationSchema = z.object({
+  label: requiredString("Label"),
+  link: requiredString("Link"),
+})
+export const updateSocialLinkValidationSchema = z.object({
+  label: requiredString("Label").optional(),
+  link: requiredString("Link").optional(),
 })

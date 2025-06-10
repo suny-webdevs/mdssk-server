@@ -3,7 +3,7 @@
 }
 
 .card_header {
-  @apply text-3xl font-bold text-white tracking-wider select-none;
+  @apply text-3xl font-bold text-white tracking-wider select-none flex items-center justify-between;
 }
 
 .card_body {

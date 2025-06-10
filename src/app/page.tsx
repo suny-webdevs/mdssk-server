@@ -1,4 +1,4 @@
-import LoginForm from "@/components/shared/LoginForm"
+import LoginForm from "@/components/forms/LoginForm"
 import styles from "./Home.module.css"
 
 export default function Home() {

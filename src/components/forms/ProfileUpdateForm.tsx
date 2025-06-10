@@ -2,7 +2,7 @@
 
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { profileValidationSchema } from "@/lib/validations/profile.validation"
+import { updateProfileValidationSchema } from "@/lib/validations/profile.validation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
@@ -14,7 +14,7 @@ const ProfileUpdateForm = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: zodResolver(profileValidationSchema),
+    resolver: zodResolver(updateProfileValidationSchema),
   })
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {

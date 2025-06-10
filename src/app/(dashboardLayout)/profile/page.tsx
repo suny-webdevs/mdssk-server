@@ -1,14 +1,21 @@
-import { getUser } from "@/utils/actions"
-import { authOptions } from "@/utils/authOptions"
 import { ShieldCheck } from "lucide-react"
 import { Metadata } from "next"
 import { getServerSession } from "next-auth"
 import Image from "next/image"
-import styles from "./styles.module.css"
+
+import { getUser } from "@/utils/actions"
+import { authOptions } from "@/utils/authOptions"
+
 import { DynamicDrawer } from "@/components/shared/DynamicDrawer"
 import { DynamicTable } from "@/components/shared/DynamicTable"
-import ProfileUpdateForm from "@/components/shared/ProfileUpdateForm"
-import UpdateForm from "@/components/shared/UpdateForm"
+import ProfileUpdateForm from "@/components/forms/ProfileUpdateForm"
+import UpdateForm from "@/components/forms/UpdateForm"
+import AddEducationForm from "@/components/forms/AddEducationForm"
+
+import styles from "./styles.module.css"
+import AddServiceForm from "@/components/forms/AddServiceForm"
+import AddCertificationForm from "@/components/forms/AddCertificationForm"
+import AddSocialLinkForm from "@/components/forms/AddSocialLinkForm"
 
 export const metadata: Metadata = {
   title: "Profile | Admin - Suny-WebDevs",
@@ -116,7 +123,13 @@ const ProfilePage = async () => {
             </div>
           </div>
           <div className={styles.card_body}>
-            <h1 className={styles.card_header}>Education</h1>
+            <h1 className={styles.card_header}>
+              <span>Education</span>
+              <DynamicDrawer
+                form={<AddEducationForm />}
+                type="add"
+              />
+            </h1>
             <div className={styles.card_normal_text}>
               <DynamicTable
                 tableData={educations}
@@ -126,7 +139,13 @@ const ProfilePage = async () => {
             </div>
           </div>
           <div className={styles.card_body}>
-            <h1 className={styles.card_header}>Services</h1>
+            <h1 className={styles.card_header}>
+              <span>Services</span>
+              <DynamicDrawer
+                form={<AddServiceForm />}
+                type="add"
+              />
+            </h1>
             <div className={styles.card_normal_text}>
               <DynamicTable
                 tableData={services}
@@ -136,7 +155,13 @@ const ProfilePage = async () => {
             </div>
           </div>
           <div className={styles.card_body}>
-            <h1 className={styles.card_header}>Certification</h1>
+            <h1 className={styles.card_header}>
+              <span>Certification</span>
+              <DynamicDrawer
+                form={<AddCertificationForm />}
+                type={"add"}
+              />
+            </h1>
             <div className={styles.card_normal_text}>
               <DynamicTable
                 tableData={certifications}
@@ -146,7 +171,13 @@ const ProfilePage = async () => {
             </div>
           </div>
           <div className={styles.card_body}>
-            <h1 className={styles.card_header}>Social Links</h1>
+            <h1 className={styles.card_header}>
+              <span>Social Links</span>
+              <DynamicDrawer
+                form={<AddSocialLinkForm />}
+                type="add"
+              />
+            </h1>
             <div className={styles.card_normal_text}>
               <DynamicTable
                 tableData={socialLinks}

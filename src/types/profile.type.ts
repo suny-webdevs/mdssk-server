@@ -6,17 +6,20 @@ export type TSkills = {
 }
 
 export type TEducation = {
+  _id?: Types.ObjectId
   institute: string
   degree: string
   cgpa: string | number
 }
 
 export type TServices = {
+  _id?: Types.ObjectId
   title: string
   description: string
 }
 
 export type TCertification = {
+  _id?: Types.ObjectId
   title: string
   description?: string
   institute: string
@@ -25,6 +28,7 @@ export type TCertification = {
 }
 
 export type TSocialLinks = {
+  _id?: Types.ObjectId
   label: string
   link: string
 }
