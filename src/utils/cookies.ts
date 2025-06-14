@@ -1,7 +1,7 @@
+"use server"
 import { cookies } from "next/headers"
 
 export const setCookie = async (cookieName: string, cookieValue: string) => {
-  "use server"
   const cookieStore = await cookies()
   cookieStore.set(cookieName, cookieValue)
 }
@@ -19,7 +19,6 @@ export const hasCookie = async (cookieName: string) => {
 }
 
 export const deleteCookie = async (cookieName: string) => {
-  "use server"
   const cookieStore = await cookies()
   cookieStore.delete(cookieName)
 }

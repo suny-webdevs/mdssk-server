@@ -1,12 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { updateProfileValidationSchema } from "@/lib/validations/profile.validation"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "../ui/label"
+import { useSession } from "next-auth/react"
+import {
+  useGetProfileQuery,
+  useUpdateProfileMutation,
+} from "@/redux/features/profile/profileApi"
+import { toast } from "sonner"
 
 const ProfileUpdateForm = () => {
   const {
@@ -17,8 +23,23 @@ const ProfileUpdateForm = () => {
     resolver: zodResolver(updateProfileValidationSchema),
   })
 
+  const session = useSession()
+  const userId = session.data?.user?.id
+  const { data: profileData } = useGetProfileQuery(
+    session.data?.user?.id as string
+  )
+  const [updateProfile, { isLoading }] = useUpdateProfileMutation()
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log({ data })
+    try {
+      const res = await updateProfile({ userId, ...data })
+      console.log(res)
+      if (res.data.success) {
+        toast.success(res.data.message)
+      }
+    } catch (error: any) {
+      toast.error(error.message)
+    }
   }
 
   return (
@@ -31,6 +52,7 @@ const ProfileUpdateForm = () => {
         <Label>Biography</Label>
         <Textarea
           placeholder="Biography"
+          defaultValue={profileData?.data?.biography}
           {...register("biography")}
         />
         {errors.biography && (
@@ -41,13 +63,15 @@ const ProfileUpdateForm = () => {
       {/* Skills */}
       <div className="flex flex-col gap-2">
         <Label>Skills</Label>
-        <Input
-          placeholder="Tech Skills (space separated)"
-          {...register("skills.0.techSkills")}
+        <Textarea
+          placeholder="Tech Skills (comma separated)"
+          defaultValue={profileData?.data?.skills?.techSkills}
+          {...register("skills.techSkills")}
         />
-        <Input
-          placeholder="Soft Skills (space separated)"
-          {...register("skills.0.softSkills")}
+        <Textarea
+          placeholder="Soft Skills (comma separated)"
+          defaultValue={profileData?.data?.skills?.softSkills}
+          {...register("skills.softSkills")}
         />
       </div>
 
@@ -57,7 +81,7 @@ const ProfileUpdateForm = () => {
         className="w-full"
         disabled={isSubmitting}
       >
-        {isSubmitting ? "Updating..." : "Update Profile"}
+        {isSubmitting || isLoading ? "Updating..." : "Update Profile Info"}
       </Button>
     </form>
   )

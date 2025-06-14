@@ -40,6 +40,8 @@ export const POST = async (req: Request) => {
       { expiresIn: "1d" }
     )
 
+    // res.headers.set("next-auth.session-token", `${token}`)
+
     return NextResponse.json(
       {
         success: true,

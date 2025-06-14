@@ -2,21 +2,16 @@ import { z } from "zod"
 
 // 🎯 Reusable Field Validations
 const requiredString = (field: string) =>
-  z
-    .string({ message: `${field} must be string` })
-    .min(1, `Empty field couldn't update`)
+  z.string({ message: `${field} must be string` })
 
 export const updateProfileValidationSchema = z.object({
   biography: requiredString("Biography").optional(),
 
   skills: z
-    .array(
-      z.object({
-        techSkills: requiredString("Tech skills"),
-        softSkills: requiredString("Soft skills"),
-      })
-    )
-    .min(1, "Skills is required")
+    .object({
+      techSkills: requiredString("Tech skills"),
+      softSkills: requiredString("Soft skills"),
+    })
     .optional(),
 })
 

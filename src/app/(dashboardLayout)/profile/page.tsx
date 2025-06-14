@@ -65,7 +65,7 @@ const socialLinks = [
 
 const ProfilePage = async () => {
   const session = await getServerSession(authOptions)
-  const user = await getUser(session?.user.email as string)
+  const user = await getUser(session?.user?.email as string)
 
   return (
     <div className="size-full flex flex-col justify-center gap-2 md:gap-5">
