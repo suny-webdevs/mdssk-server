@@ -13,6 +13,7 @@ import {
   useUpdateProfileMutation,
 } from "@/redux/features/profile/profileApi"
 import { toast } from "sonner"
+import Loading from "@/app/loading"
 
 const ProfileUpdateForm = () => {
   const {
@@ -25,9 +26,8 @@ const ProfileUpdateForm = () => {
 
   const session = useSession()
   const userId = session.data?.user?.id
-  const { data: profileData } = useGetProfileQuery(
-    session.data?.user?.id as string
-  )
+  const { data: profileData, isLoading: getProfileLoading } =
+    useGetProfileQuery(session.data?.user?.id as string)
   const [updateProfile, { isLoading }] = useUpdateProfileMutation()
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -40,6 +40,10 @@ const ProfileUpdateForm = () => {
     } catch (error: any) {
       toast.error(error.message)
     }
+  }
+
+  if (getProfileLoading) {
+    return <Loading />
   }
 
   return (
