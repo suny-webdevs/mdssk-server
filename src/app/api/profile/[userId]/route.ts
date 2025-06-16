@@ -1,19 +1,18 @@
 import { connectToDatabase } from "@/lib/mongoose"
 import { Profile } from "@/models/profile.model"
-import { hasCookie } from "@/utils"
+// import { hasCookie } from "@/utils"
 import SendResponse from "@/utils/SendResponse"
 
 export const GET = async (
   req: Request,
   { params }: { params: Promise<{ userId: string }> }
 ) => {
-  const token = await hasCookie("next-auth.session-token")
-  console.log({ token })
-  if (!token) {
-    return SendResponse(401, false, "UNAUTHORIZED access", {
-      message: "You should be authorized",
-    })
-  }
+  // const token = await hasCookie("next-auth.session-token")
+  // if (!token) {
+  //   return SendResponse(401, false, "UNAUTHORIZED access", {
+  //     message: "You should be authorized",
+  //   })
+  // }
   try {
     await connectToDatabase()
     const { userId } = await params
@@ -32,13 +31,12 @@ export const PUT = async (
   req: Request,
   { params }: { params: Promise<{ userId: string }> }
 ) => {
-  const token = await hasCookie("next-auth.session-token")
-  console.log({ token })
-  if (!token) {
-    return SendResponse(401, false, "UNAUTHORIZED access", {
-      message: "You should be authorized",
-    })
-  }
+  // const token = await hasCookie("next-auth.session-token")
+  // if (!token) {
+  //   return SendResponse(401, false, "UNAUTHORIZED access", {
+  //     message: "You should be authorized",
+  //   })
+  // }
   try {
     await connectToDatabase()
     const { biography, skills } = await req.json()

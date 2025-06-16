@@ -18,12 +18,14 @@ type TDynamicDrawerProps = {
   form: ReactNode
   type?: "add" | "update"
   table?: boolean
+  buttonColor?: "white" | "black"
 }
 
 export function DynamicDrawer({
   form,
   type = "update",
   table = false,
+  buttonColor = "white",
 }: TDynamicDrawerProps) {
   return (
     <Drawer>
@@ -36,8 +38,18 @@ export function DynamicDrawer({
               variant="ghost"
               className="bg-transparent hover:bg-transparent select-none"
             >
-              <UserRoundPen className="text-white text-xl" />
-              <span className="text-base text-white">Update</span>
+              <UserRoundPen
+                className={`${
+                  buttonColor === "black" ? "text-black/80" : "text-white"
+                } text-xl`}
+              />
+              <span
+                className={`text-base ${
+                  buttonColor === "black" ? "text-black/80" : "text-white"
+                }`}
+              >
+                Update
+              </span>
             </Button>
           )
         ) : (

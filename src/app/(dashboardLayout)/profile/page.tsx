@@ -7,61 +7,13 @@ import { getUser } from "@/utils/actions"
 import { authOptions } from "@/utils/authOptions"
 
 import { DynamicDrawer } from "@/components/shared/DynamicDrawer"
-import { DynamicTable } from "@/components/shared/DynamicTable"
-import ProfileUpdateForm from "@/components/forms/ProfileUpdateForm"
-import UpdateForm from "@/components/forms/UpdateForm"
-import AddEducationForm from "@/components/forms/AddEducationForm"
 
-import styles from "./styles.module.css"
-import AddServiceForm from "@/components/forms/AddServiceForm"
-import AddCertificationForm from "@/components/forms/AddCertificationForm"
-import AddSocialLinkForm from "@/components/forms/AddSocialLinkForm"
+import UpdateForm from "@/components/forms/UpdateForm"
+import ProfileClient from "@/components/shared/ProfileClient"
 
 export const metadata: Metadata = {
   title: "Profile | Admin - Suny-WebDevs",
 }
-
-const skills = [
-  {
-    techSkills:
-      "Next.Js, React.Js, Node.Js, TypeScript, Express.Js, Tailwind CSS, Mongoose, MongoDB, PostgreSQL, Prisma",
-    softSkills: "Well communication, Networking, Presentation",
-  },
-]
-
-const educations = [
-  {
-    institute: "Govt P.C Collage, Bagerhat",
-    degree: "BSS",
-    cgpa: 3.5,
-  },
-]
-
-const services = [
-  {
-    title: "Full Stack Development",
-    description:
-      "Bridging front and back—crafting seamless, scalable, and dynamic web solutions.",
-  },
-]
-
-const certifications = [
-  {
-    title: "Full Stack Development",
-    institute: "Programming Hero",
-  },
-]
-
-const socialLinks = [
-  {
-    label: "GitHub",
-    link: "https://github.com/suny-webdevs",
-  },
-  {
-    label: "LinkedIn",
-    link: "https://linkedin.com/in/mdsunyshaikh",
-  },
-]
 
 const ProfilePage = async () => {
   const session = await getServerSession(authOptions)
@@ -73,7 +25,7 @@ const ProfilePage = async () => {
         <span className="absolute top-7 left-7 flex items-center gap-2 px-2 py-1 rounded-lg bg-green-100/10 border border-green-200/30 text-green-500 tracking-wider">
           <ShieldCheck className="text-xs" />
           <span className="font-semibold select-none">
-            {session?.user.role === "Admin" && user?.data?.role}
+            {session?.user.role === "Admin" && session?.user.role}
           </span>
         </span>
         <span className="absolute top-7 right-7">
@@ -100,94 +52,7 @@ const ProfilePage = async () => {
           </div>
         </div>
       </div>
-      <div className="relative w-full h-full rounded-3xl px-5 pt-20 bg-gradient-to-b from-black/80 via-black/70 to-black/50">
-        <span className="absolute top-7 right-7">
-          <DynamicDrawer form={<ProfileUpdateForm />} />
-        </span>
-        <div className={styles.card}>
-          <div className={styles.card_body}>
-            <h1 className={styles.card_header}>Biography</h1>
-            <p className={styles.card_normal_text}>
-              Motivated MERN Stack Developer skilled in building dynamic,
-              scalable web applications. Passionate about clean code,
-              performance optimization, and seamless user experiences.
-            </p>
-          </div>
-          <div className={styles.card_body}>
-            <h1 className={styles.card_header}>Skills</h1>
-            <div className={styles.card_normal_text}>
-              <DynamicTable
-                tableData={skills}
-                tableHeader={["Tech Skills", "Soft Skills"]}
-              />
-            </div>
-          </div>
-          <div className={styles.card_body}>
-            <h1 className={styles.card_header}>
-              <span>Education</span>
-              <DynamicDrawer
-                form={<AddEducationForm />}
-                type="add"
-              />
-            </h1>
-            <div className={styles.card_normal_text}>
-              <DynamicTable
-                tableData={educations}
-                tableHeader={["Institute", "Degree", "CGPA"]}
-                action
-              />
-            </div>
-          </div>
-          <div className={styles.card_body}>
-            <h1 className={styles.card_header}>
-              <span>Services</span>
-              <DynamicDrawer
-                form={<AddServiceForm />}
-                type="add"
-              />
-            </h1>
-            <div className={styles.card_normal_text}>
-              <DynamicTable
-                tableData={services}
-                tableHeader={["Title", "Description"]}
-                action
-              />
-            </div>
-          </div>
-          <div className={styles.card_body}>
-            <h1 className={styles.card_header}>
-              <span>Certification</span>
-              <DynamicDrawer
-                form={<AddCertificationForm />}
-                type={"add"}
-              />
-            </h1>
-            <div className={styles.card_normal_text}>
-              <DynamicTable
-                tableData={certifications}
-                tableHeader={["Title", "Institute"]}
-                action
-              />
-            </div>
-          </div>
-          <div className={styles.card_body}>
-            <h1 className={styles.card_header}>
-              <span>Social Links</span>
-              <DynamicDrawer
-                form={<AddSocialLinkForm />}
-                type="add"
-              />
-            </h1>
-            <div className={styles.card_normal_text}>
-              <DynamicTable
-                tableData={socialLinks}
-                tableHeader={["Label", "Link"]}
-                action
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <ProfileClient userId={session?.user?.id as string} />
     </div>
   )
 }

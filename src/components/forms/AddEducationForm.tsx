@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form"
@@ -5,6 +6,9 @@ import { Button } from "../ui/button"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { addEducationValidationSchema } from "@/lib/validations/profile.validation"
 import { Input } from "../ui/input"
+import { useSession } from "next-auth/react"
+import { useCreateEducationMutation } from "@/redux/features/profile/educationApi"
+import { toast } from "sonner"
 
 const AddEducationForm = () => {
   const {
@@ -15,8 +19,19 @@ const AddEducationForm = () => {
     resolver: zodResolver(addEducationValidationSchema),
   })
 
+  const session = useSession()
+  const userId = session?.data?.user?.id
+  const [addEducation, { isLoading }] = useCreateEducationMutation()
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log({ data })
+    try {
+      const res = await addEducation({ userId, ...data })
+      if (res?.data?.success) {
+        toast.success(res?.data?.message)
+      }
+    } catch (error: any) {
+      toast.error(error?.message)
+    }
   }
 
   return (
@@ -56,7 +71,9 @@ const AddEducationForm = () => {
           <span className="text-red-500 text-sm">{errors.cgpa.message}</span>
         )}
       </div>
-      <Button>{isSubmitting ? "Adding..." : "Add Education"}</Button>
+      <Button>
+        {isSubmitting || isLoading ? "Adding..." : "Add Education"}
+      </Button>
     </form>
   )
 }
