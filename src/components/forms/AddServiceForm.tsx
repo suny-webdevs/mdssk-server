@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
@@ -6,6 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { addServiceValidationSchema } from "@/lib/validations/profile.validation"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
+import { useSession } from "next-auth/react"
+import { useCreateServiceMutation } from "@/redux/features/profile/servicesApi"
+import { toast } from "sonner"
 
 const AddServiceForm = () => {
   const {
@@ -16,8 +20,19 @@ const AddServiceForm = () => {
     resolver: zodResolver(addServiceValidationSchema),
   })
 
+  const session = useSession()
+  const userId = session?.data?.user?.id
+  const [addService, { isLoading }] = useCreateServiceMutation()
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data)
+    try {
+      const res = await addService({ userId, ...data })
+      if (res?.data?.success) {
+        toast.success(res?.data?.message)
+      }
+    } catch (error: any) {
+      toast.error(error?.message)
+    }
   }
 
   return (
@@ -46,7 +61,7 @@ const AddServiceForm = () => {
           </span>
         )}
       </div>
-      <Button>{isSubmitting ? "Adding..." : "Add Service"}</Button>
+      <Button>{isSubmitting || isLoading ? "Adding..." : "Add Service"}</Button>
     </form>
   )
 }
