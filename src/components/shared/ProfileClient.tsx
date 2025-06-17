@@ -6,44 +6,14 @@ import AddEducationForm from "@/components/forms/AddEducationForm"
 import AddServiceForm from "@/components/forms/AddServiceForm"
 import AddCertificationForm from "@/components/forms/AddCertificationForm"
 import AddSocialLinkForm from "@/components/forms/AddSocialLinkForm"
-import ProfileCard from "@/components/shared/ProfileCard"
+import ProfileCard from "@/components/cards/ProfileCard"
 import { DynamicDrawer } from "./DynamicDrawer"
 import { useGetProfileQuery } from "@/redux/features/profile/profileApi"
 import Loading from "@/app/(dashboardLayout)/loading"
-
-const educations = [
-  {
-    institute: "Govt P.C Collage, Bagerhat",
-    degree: "BSS",
-    cgpa: 3.5,
-  },
-]
-
-const services = [
-  {
-    title: "Full Stack Development",
-    description:
-      "Bridging front and back—crafting seamless, scalable, and dynamic web solutions.",
-  },
-]
-
-const certifications = [
-  {
-    title: "Full Stack Development",
-    institute: "Programming Hero",
-  },
-]
-
-const socialLinks = [
-  {
-    label: "GitHub",
-    link: "https://github.com/suny-webdevs",
-  },
-  {
-    label: "LinkedIn",
-    link: "https://linkedin.com/in/mdsunyshaikh",
-  },
-]
+import EducationInfoCard from "../cards/EducationInfoCard"
+import ServicesInfoCard from "../cards/ServicesInfoCard"
+import CertificationInfoCard from "../cards/CertificationInfoCard"
+import SocialLinksInfoCard from "../cards/SocialLinksInfoCard"
 
 type TProfileClientProps = {
   userId: string
@@ -51,7 +21,6 @@ type TProfileClientProps = {
 
 const ProfileClient = ({ userId }: TProfileClientProps) => {
   const { data: profileData, isLoading } = useGetProfileQuery(userId)
-  console.log(profileData)
 
   if (isLoading) {
     return <Loading />
@@ -93,7 +62,7 @@ const ProfileClient = ({ userId }: TProfileClientProps) => {
             </h1>
             <div
               className={
-                "text-lg text-white mt-5 tracking-wide flex flex-col gap-5"
+                "text-lg text-white mt-5 tracking-wide flex flex-col gap-5 lg:gap-2"
               }
             >
               <span>
@@ -111,32 +80,32 @@ const ProfileClient = ({ userId }: TProfileClientProps) => {
           title="Education"
           form={<AddEducationForm />}
           formType="add"
-          tableData={educations}
-          tableHeader={["Institute", "Degree", "CGPA"]}
+          data={profileData?.data?.education}
+          dataComponent={EducationInfoCard}
         />
 
         <ProfileCard
           title="Services"
           form={<AddServiceForm />}
           formType="add"
-          tableData={services}
-          tableHeader={["Title", "Description"]}
+          data={profileData?.data?.services}
+          dataComponent={ServicesInfoCard}
         />
 
         <ProfileCard
           title="Certification"
           form={<AddCertificationForm />}
           formType="add"
-          tableData={certifications}
-          tableHeader={["Title", "Institute"]}
+          data={profileData?.data?.certification}
+          dataComponent={CertificationInfoCard}
         />
 
         <ProfileCard
           title="Social Links"
           form={<AddSocialLinkForm />}
           formType="add"
-          tableData={socialLinks}
-          tableHeader={["Label", "Link"]}
+          data={profileData?.data?.socialLinks}
+          dataComponent={SocialLinksInfoCard}
         />
       </div>
     </div>

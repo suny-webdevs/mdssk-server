@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form"
@@ -5,8 +6,15 @@ import { Button } from "../ui/button"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { updateEducationValidationSchema } from "@/lib/validations/profile.validation"
 import { Input } from "../ui/input"
+import { useUpdateEducationMutation } from "@/redux/features/profile/educationApi"
+import { toast } from "sonner"
 
-const UpdateEducationForm = () => {
+type TUpdateEducationForm = {
+  data: Record<string, string>
+}
+
+const UpdateEducationForm = ({ data }: TUpdateEducationForm) => {
+  const { _id, institute, degree, cgpa, passingYear, session, duration } = data
   const {
     register,
     handleSubmit,
@@ -15,8 +23,17 @@ const UpdateEducationForm = () => {
     resolver: zodResolver(updateEducationValidationSchema),
   })
 
+  const [updateEducation, { isLoading }] = useUpdateEducationMutation()
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log({ data })
+    try {
+      const res = await updateEducation({ _id, ...data })
+      if (res?.data?.success) {
+        toast.success(res?.data?.message)
+      }
+    } catch (error: any) {
+      toast.error(error.message)
+    }
   }
 
   return (
@@ -27,7 +44,7 @@ const UpdateEducationForm = () => {
       <div>
         <Input
           type="text"
-          placeholder="Institute"
+          defaultValue={institute}
           {...register("institute")}
         />
         {errors.institute && (
@@ -39,7 +56,7 @@ const UpdateEducationForm = () => {
       <div>
         <Input
           type="text"
-          placeholder="Degree"
+          defaultValue={degree}
           {...register("degree")}
         />
         {errors.degree && (
@@ -49,14 +66,50 @@ const UpdateEducationForm = () => {
       <div>
         <Input
           type="text"
-          placeholder="CGPA"
+          defaultValue={cgpa}
           {...register("cgpa")}
         />
         {errors.cgpa && (
           <span className="text-red-500 text-sm">{errors.cgpa.message}</span>
         )}
       </div>
-      <Button>{isSubmitting ? "Adding..." : "Add Education"}</Button>
+      <div>
+        <Input
+          type="text"
+          defaultValue={passingYear}
+          {...register("passingYear")}
+        />
+        {errors.passingYear && (
+          <span className="text-red-500 text-sm">
+            {errors.passingYear.message}
+          </span>
+        )}
+      </div>
+      <div>
+        <Input
+          type="text"
+          defaultValue={session}
+          {...register("session")}
+        />
+        {errors.session && (
+          <span className="text-red-500 text-sm">{errors.session.message}</span>
+        )}
+      </div>
+      <div>
+        <Input
+          type="text"
+          defaultValue={duration}
+          {...register("duration")}
+        />
+        {errors.duration && (
+          <span className="text-red-500 text-sm">
+            {errors.duration.message}
+          </span>
+        )}
+      </div>
+      <Button>
+        {isSubmitting || isLoading ? "Updating..." : "Update Education"}
+      </Button>
     </form>
   )
 }

@@ -9,7 +9,12 @@ export type TEducation = {
   _id?: Types.ObjectId
   institute: string
   degree: string
-  cgpa: string | number
+  cgpa: string
+  passingYear: string
+  session: string
+  duration: string
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 export type TServices = {

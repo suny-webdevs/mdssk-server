@@ -1,23 +1,22 @@
-import { ReactNode } from "react"
-import { DynamicDrawer } from "./DynamicDrawer"
-import { DynamicTable } from "./DynamicTable"
+import React, { ReactNode } from "react"
+import { DynamicDrawer } from "../shared/DynamicDrawer"
 
 type TProfileCardProps = {
   title: string
   form: ReactNode
   formType?: "add" | "update"
-  formTable?: boolean
-  tableData: Record<string, string | number>[]
-  tableHeader: string[]
+  formRow?: boolean
+  data: Record<string, string>[]
+  dataComponent: React.ComponentType<{ data: Record<string, string> }>
 }
 
 const ProfileCard = ({
   title,
   form,
   formType = "update",
-  formTable = false,
-  tableData,
-  tableHeader,
+  formRow = false,
+  data,
+  dataComponent: DataComponent,
 }: TProfileCardProps) => {
   return (
     <div className="bg-black/10 backdrop:blur-lg p-8 rounded-3xl">
@@ -26,15 +25,16 @@ const ProfileCard = ({
         <DynamicDrawer
           form={form}
           type={formType}
-          table={formTable}
+          row={formRow}
         />
       </h1>
-      <div className="text-lg text-white mt-5 tracking-wide flex flex-col gap-2">
-        <DynamicTable
-          tableData={tableData}
-          tableHeader={tableHeader}
-          action
-        />
+      <div className="flex flex-col gap-3 mt-5">
+        {data.map((item) => (
+          <DataComponent
+            key={item._id}
+            data={item}
+          />
+        ))}
       </div>
     </div>
   )

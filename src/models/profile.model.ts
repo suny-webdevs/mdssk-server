@@ -26,7 +26,10 @@ const educationSchema = new Schema<TEducation>(
   {
     institute: { type: String, required: [true, "Institute is required"] },
     degree: { type: String, required: [true, "Degree is required"] },
-    cgpa: { type: Schema.Types.Mixed, required: [true, "CGPA is required"] }, // Accepts string or number
+    cgpa: { type: String, required: [true, "CGPA is required"] },
+    passingYear: { type: String, required: [true, "Passing year is required"] },
+    session: { type: String, required: [true, "Session is required"] },
+    duration: { type: String, required: [true, "Duration is required"] },
   },
   { timestamps: true }
 )

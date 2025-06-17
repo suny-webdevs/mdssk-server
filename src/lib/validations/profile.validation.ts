@@ -19,11 +19,17 @@ export const addEducationValidationSchema = z.object({
   institute: requiredString("Institute"),
   degree: requiredString("Degree"),
   cgpa: requiredString("CGPA"),
+  passingYear: requiredString("Passing year"),
+  session: requiredString("Session"),
+  duration: requiredString("Duration"),
 })
 export const updateEducationValidationSchema = z.object({
   institute: requiredString("Institute").optional(),
   degree: requiredString("Degree").optional(),
   cgpa: requiredString("CGPA").optional(),
+  passingYear: requiredString("Passing year").optional(),
+  session: requiredString("Session").optional(),
+  duration: requiredString("Duration").optional(),
 })
 
 export const addServiceValidationSchema = z.object({

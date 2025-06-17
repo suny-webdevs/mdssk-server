@@ -11,28 +11,30 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
-import { Plus, UserRoundPen } from "lucide-react"
+import { Pencil, Plus, UserRoundPen } from "lucide-react"
 import { ReactNode } from "react"
 
 type TDynamicDrawerProps = {
   form: ReactNode
   type?: "add" | "update"
-  table?: boolean
+  row?: boolean
   buttonColor?: "white" | "black"
 }
 
 export function DynamicDrawer({
   form,
   type = "update",
-  table = false,
+  row = false,
   buttonColor = "white",
 }: TDynamicDrawerProps) {
   return (
     <Drawer>
       <DrawerTrigger asChild>
         {type === "update" ? (
-          table ? (
-            <button className="text-black cursor-pointer">Update</button>
+          row ? (
+            <button className="bg-transparent text-white/80 hover:bg-transparent hover:text-white backdrop:blur-lg p-2">
+              <Pencil className="size-4" />
+            </button>
           ) : (
             <Button
               variant="ghost"
