@@ -9,7 +9,13 @@ const profileApi = baseApi.injectEndpoints({
           method: "GET",
         }
       },
-      providesTags: ["Profile", "Education"],
+      providesTags: [
+        "Profile",
+        "Education",
+        "Service",
+        "Certification",
+        "SocialLink",
+      ],
     }),
     updateProfile: builder.mutation({
       query: ({ userId, ...data }) => ({

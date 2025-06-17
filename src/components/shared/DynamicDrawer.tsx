@@ -32,7 +32,7 @@ export function DynamicDrawer({
       <DrawerTrigger asChild>
         {type === "update" ? (
           row ? (
-            <button className="bg-transparent text-white/80 hover:bg-transparent hover:text-white backdrop:blur-lg p-2">
+            <button className="bg-transparent text-white/80 hover:bg-transparent hover:text-white p-2">
               <Pencil className="size-4" />
             </button>
           ) : (

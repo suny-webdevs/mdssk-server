@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Trash2 } from "lucide-react"
-import { DynamicDrawer } from "../shared/DynamicDrawer"
 import UpdateEducationForm from "../forms/UpdateEducationForm"
 import { useDeleteEducationMutation } from "@/redux/features/profile/educationApi"
 import { toast } from "sonner"
 import Loading from "@/app/(dashboardLayout)/loading"
 import { useSession } from "next-auth/react"
+import DynamicInfoCard from "./DynamicInfoCard"
 
 type TEducationInfoCardProps = {
   data: Record<string, string>
@@ -33,7 +32,10 @@ const EducationInfoCard = ({ data }: TEducationInfoCardProps) => {
   }
 
   return (
-    <div className="group relative bg-black/10 backdrop:blur-xl p-4 rounded-xl">
+    <DynamicInfoCard
+      updateForm={<UpdateEducationForm data={data} />}
+      deleteHandler={handleDelete}
+    >
       <div>
         <h1 className="font-semibold text-white">{institute}</h1>
         <div className="flex flex-col text-sm text-white/80">
@@ -44,20 +46,7 @@ const EducationInfoCard = ({ data }: TEducationInfoCardProps) => {
           <span>Duration : {duration}</span>
         </div>
       </div>
-      <div className="group-hover:flex flex-col justify-center gap-1 py-3 bg-black/20 backdrop:blur-lg rounded-3xl absolute top-4 bottom-4 right-2 hidden">
-        <DynamicDrawer
-          form={<UpdateEducationForm data={data} />}
-          row
-        />
-        <hr className="border-white/20" />
-        <button
-          onClick={handleDelete}
-          className="bg-transparent text-red-400 hover:bg-transparent hover:text-red-600 backdrop:blur-lg p-2"
-        >
-          <Trash2 className="size-4" />
-        </button>
-      </div>
-    </div>
+    </DynamicInfoCard>
   )
 }
 
