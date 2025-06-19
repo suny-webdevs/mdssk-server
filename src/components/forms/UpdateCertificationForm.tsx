@@ -1,37 +1,40 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
-
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { addCertificationValidationSchema } from "@/lib/validations/profile.validation"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { Textarea } from "../ui/textarea"
-import { useSession } from "next-auth/react"
-import { useCreateCertificationMutation } from "@/redux/features/profile/certificationApi"
+import { updateCertificationValidationSchema } from "@/lib/validations/profile.validation"
+import { useUpdateCertificationMutation } from "@/redux/features/profile/certificationApi"
+import { Label } from "../ui/label"
 import { toast } from "sonner"
 
-const AddCertificationForm = () => {
+type TUpdateCertificationFormProps = {
+  data: Record<string, string>
+}
+
+const UpdateCertificationForm = ({ data }: TUpdateCertificationFormProps) => {
+  const { _id, title, description, institute, image, file } = data
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: zodResolver(addCertificationValidationSchema),
+    resolver: zodResolver(updateCertificationValidationSchema),
   })
 
-  const session = useSession()
-  const userId = session?.data?.user?.id
-  const [addCertificate, { isLoading }] = useCreateCertificationMutation()
+  const [updateCertificate, { isLoading }] = useUpdateCertificationMutation()
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      const res = await addCertificate({ userId, ...data })
+      const res = await updateCertificate({ _id, ...data })
       if (res?.data?.success) {
         toast.success(res?.data?.message)
       }
     } catch (error: any) {
-      toast.error(error?.message)
+      toast.error(error.message)
     }
   }
 
@@ -41,9 +44,10 @@ const AddCertificationForm = () => {
       className="space-y-5 w-full p-5"
     >
       <div>
+        <Label>Title</Label>
         <Input
-          placeholder="Title"
-          {...register("title", { required: true })}
+          defaultValue={title}
+          {...register("title")}
         />
         {errors.title && (
           <p className="text-red-500 text-sm">{errors.title.message}</p>
@@ -51,16 +55,18 @@ const AddCertificationForm = () => {
       </div>
 
       <div className="flex flex-col gap-2">
+        <Label>Description</Label>
         <Textarea
-          placeholder="Description"
+          defaultValue={description}
           {...register("description")}
         />
       </div>
 
       <div>
+        <Label>Institute</Label>
         <Input
-          placeholder="Institute"
-          {...register("institute", { required: true })}
+          defaultValue={institute}
+          {...register("institute")}
         />
         {errors.institute && (
           <p className="text-red-500 text-sm">{errors.institute.message}</p>
@@ -68,15 +74,17 @@ const AddCertificationForm = () => {
       </div>
 
       <div className="flex flex-col gap-2">
+        <Label>Image</Label>
         <Input
-          placeholder="Image URL"
+          defaultValue={image}
           {...register("image")}
         />
       </div>
 
       <div className="flex flex-col gap-2">
-        <Input
-          placeholder="File URL"
+        <Label>File URL</Label>
+        <Textarea
+          defaultValue={file}
           {...register("file")}
         />
       </div>
@@ -87,10 +95,10 @@ const AddCertificationForm = () => {
         className="w-full"
         disabled={isSubmitting}
       >
-        {isSubmitting || isLoading ? "Adding..." : "Add Certificate"}
+        {isSubmitting || isLoading ? "Updating..." : "Update Certificate"}
       </Button>
     </form>
   )
 }
 
-export default AddCertificationForm
+export default UpdateCertificationForm

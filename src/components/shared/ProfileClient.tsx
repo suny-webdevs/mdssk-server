@@ -9,7 +9,7 @@ import AddSocialLinkForm from "@/components/forms/AddSocialLinkForm"
 import ProfileCard from "@/components/cards/ProfileCard"
 import { DynamicDrawer } from "./DynamicDrawer"
 import { useGetProfileQuery } from "@/redux/features/profile/profileApi"
-import Loading from "@/app/(dashboardLayout)/loading"
+import Loading from "@/app/loading"
 import EducationInfoCard from "../cards/EducationInfoCard"
 import ServicesInfoCard from "../cards/ServicesInfoCard"
 import CertificationInfoCard from "../cards/CertificationInfoCard"
@@ -21,7 +21,6 @@ type TProfileClientProps = {
 
 const ProfileClient = ({ userId }: TProfileClientProps) => {
   const { data: profileData, isLoading } = useGetProfileQuery(userId)
-
   if (isLoading) {
     return <Loading />
   }

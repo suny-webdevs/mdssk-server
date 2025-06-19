@@ -75,10 +75,7 @@ export function DynamicTable({
                   <DropdownMenuContent>
                     <DropdownMenuGroup>
                       <DropdownMenuItem>
-                        <DynamicDrawer
-                          form={form}
-                          table
-                        />
+                        <DynamicDrawer form={form} />
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem>

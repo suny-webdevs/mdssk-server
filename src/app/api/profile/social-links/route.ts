@@ -10,7 +10,7 @@ export const POST = async (req: Request) => {
     const res = await SocialLink.create(payload)
     await Profile.findOneAndUpdate(
       { userId },
-      { $push: { education: new Types.ObjectId(res?._id) } },
+      { $push: { socialLinks: new Types.ObjectId(res?._id) } },
       { new: true }
     )
     return SendResponse(201, true, "Social link created successfully", res)
@@ -49,7 +49,7 @@ export const DELETE = async (req: Request) => {
     const res = await SocialLink.findByIdAndDelete(_id)
     await Profile.findOneAndUpdate(
       { userId },
-      { $pull: { education: _id } },
+      { $pull: { socialLinks: _id } },
       { new: true }
     )
     return SendResponse(200, true, "Social link deleted successfully", res)

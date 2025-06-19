@@ -2,34 +2,37 @@
 "use client"
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { addSocialLinkValidationSchema } from "@/lib/validations/profile.validation"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
-import { useSession } from "next-auth/react"
-import { useCreateSocialLinkMutation } from "@/redux/features/profile/socialLinksApi"
+import { updateSocialLinkValidationSchema } from "@/lib/validations/profile.validation"
+import { useUpdateSocialLinkMutation } from "@/redux/features/profile/socialLinksApi"
 import { toast } from "sonner"
 
-const AddSocialLinkForm = () => {
+type TUpdateSocialLinkFormProps = {
+  data: Record<string, string>
+}
+
+const UpdateSocialLinkForm = ({ data }: TUpdateSocialLinkFormProps) => {
+  const { _id, label, link } = data
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: zodResolver(addSocialLinkValidationSchema),
+    resolver: zodResolver(updateSocialLinkValidationSchema),
   })
 
-  const session = useSession()
-  const userId = session?.data?.user?.id
-  const [addSocialLink, { isLoading }] = useCreateSocialLinkMutation()
+  const [updateSocialLink, { isLoading }] = useUpdateSocialLinkMutation()
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      const res = await addSocialLink({ userId, ...data })
+      const res = await updateSocialLink({ _id, ...data })
       if (res?.data?.success) {
         toast.success(res?.data?.message)
       }
     } catch (error: any) {
-      toast.error(error?.message)
+      toast.error(error.message)
     }
   }
 
@@ -40,8 +43,8 @@ const AddSocialLinkForm = () => {
     >
       <div>
         <Input
-          placeholder="Label"
-          {...register("label", { required: true })}
+          defaultValue={label}
+          {...register("label")}
         />
         {errors.label && (
           <p className="text-red-500 text-sm">{errors.label.message}</p>
@@ -50,8 +53,8 @@ const AddSocialLinkForm = () => {
 
       <div>
         <Input
-          placeholder="Link"
-          {...register("link", { required: true })}
+          defaultValue={link}
+          {...register("link")}
         />
         {errors.link && (
           <p className="text-red-500 text-sm">{errors.link.message}</p>
@@ -64,10 +67,10 @@ const AddSocialLinkForm = () => {
         className="w-full"
         disabled={isSubmitting}
       >
-        {isSubmitting || isLoading ? "Adding..." : "Add Social Link"}
+        {isSubmitting || isLoading ? "Updating..." : "Update Social Link"}
       </Button>
     </form>
   )
 }
 
-export default AddSocialLinkForm
+export default UpdateSocialLinkForm

@@ -45,14 +45,14 @@ export const addCertificationValidationSchema = z.object({
   title: requiredString("Title"),
   description: z.string().optional(),
   institute: requiredString("Institute"),
-  image: z.string().url().optional(),
+  image: z.string().optional(),
   file: z.string().optional(),
 })
 export const updateCertificationValidationSchema = z.object({
   title: requiredString("Title").optional(),
   description: z.string().optional(),
   institute: requiredString("Institute").optional(),
-  image: z.string().url().optional(),
+  image: z.string().optional(),
   file: z.string().optional(),
 })
 
