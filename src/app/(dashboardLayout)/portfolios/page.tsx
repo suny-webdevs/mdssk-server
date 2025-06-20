@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "Portfolio projects | Admin - Suny-WebDevs",
 }
 
-const invoices = [
+const projects = [
   {
     id: 1,
     title: "Taj Apart",
@@ -31,7 +31,7 @@ const invoices = [
 
 const PortfolioPage = () => {
   return (
-    <div>
+    <div className="mt-5">
       <Link href={"/portfolios/add"}>
         <Button>Add Portfolio</Button>
       </Link>
@@ -44,10 +44,10 @@ const PortfolioPage = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {invoices.map((invoice) => (
-            <TableRow key={invoice.id}>
-              <TableCell className="font-medium">{invoice.title}</TableCell>
-              <TableCell>{invoice.category}</TableCell>
+          {projects.map((project) => (
+            <TableRow key={project.id}>
+              <TableCell className="font-medium">{project.title}</TableCell>
+              <TableCell>{project.category}</TableCell>
               <TableCell className="flex items-center gap-3 justify-end">
                 <SwdTooltip text="Update">
                   <Link href={"/portfolios/update"}>
