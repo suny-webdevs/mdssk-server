@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react"
+import { ComponentType, ReactNode } from "react"
 import { DynamicDrawer } from "../shared/DynamicDrawer"
 
 type TProfileCardProps = {
@@ -7,7 +7,7 @@ type TProfileCardProps = {
   formType?: "add" | "update"
   formRow?: boolean
   data: Record<string, string>[]
-  dataComponent: React.ComponentType<{ data: Record<string, string> }>
+  dataComponent: ComponentType<{ data: Record<string, string> }>
 }
 
 const ProfileCard = ({

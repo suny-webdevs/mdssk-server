@@ -1,77 +1,37 @@
-import { Button } from "@/components/ui/button"
-import SwdTooltip from "@/components/shared/SwdTooltip"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { PenLine, Trash2 } from "lucide-react"
+import GridCard from "@/components/cards/GridCard"
+import ListCard from "@/components/cards/ListCard"
+import DynamicTabs from "@/components/shared/DynamicTabs"
 import { Metadata } from "next"
-import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "Blogs | Admin - Suny-WebDevs",
 }
 
-const invoices = [
+const blogs = [
   {
-    id: 1,
-    title: "Taj Apart",
-    category: "Building Management System",
+    _id: "1",
+    title: "How to build a custom hook",
+    category: "Coding",
+    image: "https://i.ibb.co/LPWhhc7/bandarban.jpg",
   },
   {
-    id: 2,
-    title: "Tour Master Pro",
-    category: "Tour Management System",
+    _id: "2",
+    title: "How to deploy on vercel",
+    category: "Deployment",
+    image: "https://i.ibb.co/LPWhhc7/bandarban.jpg",
   },
 ]
 
 const BlogsPage = () => {
   return (
-    <div>
-      <Link href={"/blogs/add"}>
-        <Button>Add Blog</Button>
-      </Link>
-      <Table className="mt-10">
-        <TableHeader>
-          <TableRow>
-            <TableHead>Title</TableHead>
-            <TableHead>Category</TableHead>
-            <TableHead className="text-end">Action</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {invoices.map((invoice) => (
-            <TableRow key={invoice.id}>
-              <TableCell className="font-medium">{invoice.title}</TableCell>
-              <TableCell>{invoice.category}</TableCell>
-              <TableCell className="flex items-center gap-3 justify-end">
-                <SwdTooltip text="Update">
-                  <Link href={"/blogs/update"}>
-                    <Button
-                      size="sm"
-                      className="text-white"
-                    >
-                      <PenLine />
-                    </Button>
-                  </Link>
-                </SwdTooltip>
-                <SwdTooltip text="Delete">
-                  <Button
-                    size="sm"
-                    className="text-red-500"
-                  >
-                    <Trash2 />
-                  </Button>
-                </SwdTooltip>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+    <div className="mt-5">
+      <DynamicTabs
+        addButtonLabel="Add Blog"
+        addButtonLink="/blogs/add"
+        data={blogs}
+        ListDataComponent={ListCard}
+        GridDataComponent={GridCard}
+      />
     </div>
   )
 }
