@@ -1,7 +1,10 @@
+import AddProjectForm from "@/components/forms/AddProjectForm"
+
 const AddPortfolioPage = () => {
   return (
-    <div>
-      <h1>This is AddPortfolioPage Component</h1>
+    <div className="my-10 md:w-[90%] md:mx-auto xl:w-[60%]">
+      <h1 className="text-3xl font-bold text-black/80">Add Project</h1>
+      <AddProjectForm />
     </div>
   )
 }

@@ -1,12 +1,13 @@
 export type TPortfolioProject = {
   _id?: string
+  thumbnail: string
   title: string
-  description: string
-  technologies: string[]
   category: string
-  liveUrl: string
-  repoUrl: string
-  imageUrl: string
+  technologies: string[]
+  images?: string[]
+  live: string
+  github: string
+  description: string
   createdAt?: Date
   updatedAt?: Date
 }
