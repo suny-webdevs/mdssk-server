@@ -1,26 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { connectToDatabase } from "@/lib/mongoose"
 import Project from "@/models/portfolio.model"
-import { NextResponse } from "next/server"
+import SendResponse from "@/utils/SendResponse"
 
 export const GET = async (
   req: Request,
   { params }: { params: Promise<{ projectId: string }> }
 ) => {
   try {
+    await connectToDatabase()
     const { projectId } = await params
     const res = await Project.findById(projectId)
-
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Project fetched successful",
-        res,
-      },
-      { status: 200 }
-    )
+    return SendResponse(200, true, "Project fetched successfully", res)
   } catch (error: any) {
-    console.log(error)
-    throw new Error(error.message)
+    return SendResponse(500, false, "Something went wrong", error)
   }
 }
 
@@ -29,22 +22,13 @@ export const PATCH = async (
   { params }: { params: Promise<{ projectId: string }> }
 ) => {
   try {
+    await connectToDatabase()
     const data = await req.json()
     const { projectId } = await params
-
     const res = await Project.findByIdAndUpdate(projectId, data)
-
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Project updated successful",
-        res,
-      },
-      { status: 200 }
-    )
+    return SendResponse(200, true, "Project updated successfully", res)
   } catch (error: any) {
-    console.log(error)
-    throw new Error(error.message)
+    return SendResponse(500, false, "Something went wrong", error)
   }
 }
 
@@ -53,19 +37,11 @@ export const DELETE = async (
   { params }: { params: Promise<{ projectId: string }> }
 ) => {
   try {
+    await connectToDatabase()
     const { projectId } = await params
     const res = await Project.findByIdAndDelete(projectId)
-
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Project deleted successful",
-        res,
-      },
-      { status: 200 }
-    )
+    return SendResponse(200, true, "Project deleted successfully", res)
   } catch (error: any) {
-    console.log(error)
-    throw new Error(error.message)
+    return SendResponse(500, false, "Something went wrong", error)
   }
 }

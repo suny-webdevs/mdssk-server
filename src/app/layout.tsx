@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <ReduxProvider>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-white selection:text-black`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-slate-300 selection:text-black`}
         >
           <AuthProvider>
             {children}

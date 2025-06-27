@@ -6,7 +6,6 @@ import {
   AlignLeft,
   AlignRight,
   Bold,
-  // Code,
   Heading1,
   Heading2,
   Highlighter,
@@ -66,7 +65,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
         </Toggle>
         <Toggle
           size={"sm"}
-          pressed={editor.isActive("italic")}
+          pressed={editor.isActive("underline")}
           onPressedChange={() => editor.chain().focus().toggleUnderline().run()}
         >
           <Underline className="size-5" />
@@ -140,14 +139,6 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
         >
           <ListOrdered className="size-5" />
         </Toggle>
-
-        {/* <Toggle
-          size={"sm"}
-          pressed={editor.isActive({ textAlign: "justify" })}
-          onPressedChange={() => editor.chain().focus().toggleCodeBlock().run()}
-        >
-          <Code className="size-4" />
-        </Toggle> */}
       </div>
     </div>
   )

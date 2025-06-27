@@ -1,5 +1,4 @@
 "use client"
-
 import { EditorContent, useEditor } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 import MenuBar from "./MenuBar"
@@ -7,17 +6,33 @@ import TextAlign from "@tiptap/extension-text-align"
 import Highlight from "@tiptap/extension-highlight"
 import Underline from "@tiptap/extension-underline"
 
-const TiptapEditor = () => {
+interface ITipTapEditorProps {
+  desc: string
+  onChange: (desc: string) => void
+}
+
+const TiptapEditor = ({ desc, onChange }: ITipTapEditorProps) => {
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        bulletList: {
+          HTMLAttributes: {
+            class: "list-disc ml-4",
+          },
+        },
+        orderedList: {
+          HTMLAttributes: {
+            class: "list-decimal ml-4",
+          },
+        },
+      }),
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),
       Highlight,
       Underline,
     ],
-    content: "<p>Write your project description here...</p>",
+    content: desc ? desc : "<p>Write your project description here...</p>",
     editorProps: {
       attributes: {
         class:
@@ -25,6 +40,9 @@ const TiptapEditor = () => {
       },
     },
     immediatelyRender: false,
+    onUpdate: ({ editor }) => {
+      onChange(editor.getHTML())
+    },
   })
 
   return (

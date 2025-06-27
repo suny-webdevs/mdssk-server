@@ -1,15 +1,16 @@
+import { TPortfolioProject } from "@/types"
 import { Schema, model, models } from "mongoose"
 
-const projectSchema = new Schema(
+const projectSchema = new Schema<TPortfolioProject>(
   {
+    thumbnail: {
+      type: String,
+      required: [true, "Thumbnail is required"],
+      trim: true,
+    },
     title: {
       type: String,
       required: [true, "Project title is required"],
-      trim: true,
-    },
-    description: {
-      type: String,
-      required: [true, "Project description is required"],
       trim: true,
     },
     category: {
@@ -18,24 +19,25 @@ const projectSchema = new Schema(
       trim: true,
     },
     technologies: {
-      type: [String],
+      type: String,
       required: [true, "Project technologies is required"],
-      default: [],
     },
-    liveUrl: {
+    images: {
+      type: String,
+    },
+    live: {
       type: String,
       required: [true, "Project live url is required"],
       trim: true,
     },
-    repoUrl: {
+    github: {
       type: String,
       required: [true, "Project repo url is required"],
       trim: true,
     },
-    imageUrl: {
+    description: {
       type: String,
-      required: [true, "Project image url is required"],
-      trim: true,
+      required: [true, "Project description is required"],
     },
   },
   {
@@ -43,6 +45,7 @@ const projectSchema = new Schema(
   }
 )
 
-const Project = models.Project || model("Project", projectSchema)
+const Project =
+  models.Project || model<TPortfolioProject>("Project", projectSchema)
 
 export default Project

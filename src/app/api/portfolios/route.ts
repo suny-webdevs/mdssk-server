@@ -1,42 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { connectToDatabase } from "@/lib/mongoose"
 import Project from "@/models/portfolio.model"
-import { TPortfolioProject } from "@/types/portfolio.type"
-import { NextResponse } from "next/server"
+import SendResponse from "@/utils/SendResponse"
 
 export const POST = async (req: Request) => {
   try {
-    const data: TPortfolioProject = await req.json()
-
-    const res = await Project.create(data)
-
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Project added successful",
-        res,
-      },
-      { status: 201 }
-    )
+    await connectToDatabase()
+    const payload = await req.json()
+    const res = await Project.create(payload)
+    console.log(res)
+    return SendResponse(201, true, "Project added successfully", res)
   } catch (error: any) {
-    console.log(error)
-    throw new Error(error.message)
+    return SendResponse(500, false, "Something went wrong", error)
   }
 }
 
 export const GET = async () => {
   try {
+    await connectToDatabase()
     const res = await Project.find()
 
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Projects fetched successful",
-        res,
-      },
-      { status: 200 }
-    )
+    return SendResponse(200, true, "Project fetched successfully", res)
   } catch (error: any) {
-    console.log(error)
-    throw new Error(error.message)
+    return SendResponse(500, false, "Something went wrong", error)
   }
 }

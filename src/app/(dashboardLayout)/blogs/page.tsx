@@ -1,5 +1,5 @@
-import GridCard from "@/components/cards/GridCard"
-import ListCard from "@/components/cards/ListCard"
+import GridCard from "@/components/cards/ProjectGridCard"
+import ListCard from "@/components/cards/ProjectListCard"
 import DynamicTabs from "@/components/shared/DynamicTabs"
 import { Metadata } from "next"
 

@@ -3,8 +3,8 @@ export type TPortfolioProject = {
   thumbnail: string
   title: string
   category: string
-  technologies: string[]
-  images?: string[]
+  technologies: string
+  images?: string
   live: string
   github: string
   description: string
