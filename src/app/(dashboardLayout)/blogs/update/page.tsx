@@ -1,3 +1,9 @@
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Update Blog | Admin - Suny-WebDevs",
+}
+
 const UpdateBlogPage = () => {
   return (
     <div>

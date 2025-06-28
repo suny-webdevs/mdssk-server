@@ -150,7 +150,4 @@
   h2 {
     @apply text-2xl font-bold;
   }
-  ol {
-    @apply list-decimal ml-4;
-  }
 }

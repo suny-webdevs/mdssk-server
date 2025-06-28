@@ -14,6 +14,7 @@ export const baseApi = createApi({
     "Certification",
     "SocialLink",
     "Projects",
+    "Blogs",
   ],
   endpoints: () => ({}),
 })

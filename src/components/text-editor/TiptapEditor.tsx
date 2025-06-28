@@ -32,7 +32,7 @@ const TiptapEditor = ({ desc, onChange }: ITipTapEditorProps) => {
       Highlight,
       Underline,
     ],
-    content: desc ? desc : "<p>Write your project description here...</p>",
+    content: desc ? desc : "<p>Write your content here...</p>",
     editorProps: {
       attributes: {
         class:

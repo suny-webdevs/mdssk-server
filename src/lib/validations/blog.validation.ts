@@ -1,12 +1,8 @@
 import { z } from "zod"
 
-export const blogValidationSchema = z.object({
+export const addBlogValidationSchema = z.object({
+  coverImage: z.string().url("Cover Image URL must be a valid URL"),
   title: z.string().min(5, "Title must be at least 5 characters"),
-  author: z.string().min(2, "Author name is required"),
-  content: z.string().min(20, "Content must be at least 20 characters"),
-  coverImage: z.string().url("Cover Image must be a valid URL").optional(),
-  tags: z.array(z.string()).optional(),
-  category: z.string().optional(),
-  isPublished: z.boolean().optional(),
-  publishedAt: z.date().optional(),
+  category: z.string({ required_error: "Category is required" }),
+  tags: z.string().optional(),
 })

@@ -19,22 +19,19 @@ const blogSchema = new Schema<TBlogPost>(
     },
     coverImage: {
       type: String,
-      default: "",
+      required: [true, "Cover Image URL is required"],
     },
     tags: {
-      type: [String],
-      default: [],
+      type: String,
+      default: "",
     },
     category: {
       type: String,
-      default: "General",
-    },
-    isPublished: {
-      type: Boolean,
-      default: false,
+      required: [true, "Category is required"],
     },
     publishedAt: {
       type: Date,
+      default: Date.now(),
     },
   },
   {

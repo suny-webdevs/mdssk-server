@@ -1,45 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { connectToDatabase } from "@/lib/mongoose"
 import Blog from "@/models/blog.model"
-import { TBlogPost } from "@/types/blog.type"
-import { NextResponse } from "next/server"
+import SendResponse from "@/utils/SendResponse"
 
 export const POST = async (req: Request) => {
   try {
-    const data: TBlogPost = await req.json()
-    console.log({ data })
-
-    const res = await Blog.create(data)
-    console.log({ res })
-
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Blog added successful",
-        res,
-      },
-      { status: 201 }
-    )
+    await connectToDatabase()
+    const { authorId, ...payload } = await req.json()
+    const res = await Blog.create({ authorId, ...payload })
+    return SendResponse(201, true, "Blog created successfully", res)
   } catch (error: any) {
-    console.log(error)
-    throw new Error(error.message)
+    return SendResponse(500, false, "Something went wrong", error)
   }
 }
 
 export const GET = async () => {
   try {
+    await connectToDatabase()
     const res = await Blog.find()
-    console.log({ res })
-
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Blogs fetched successful",
-        res,
-      },
-      { status: 200 }
-    )
+    return SendResponse(201, true, "Blogs fetched successfully", res)
   } catch (error: any) {
-    console.log(error)
-    throw new Error(error.message)
+    return SendResponse(500, false, "Something went wrong", error)
   }
 }

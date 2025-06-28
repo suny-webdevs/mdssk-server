@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { connectToDatabase } from "@/lib/mongoose"
 import Blog from "@/models/blog.model"
-import { NextResponse } from "next/server"
+import SendResponse from "@/utils/SendResponse"
 
 export const GET = async (
   req: Request,
@@ -11,21 +12,12 @@ export const GET = async (
   }
 ) => {
   try {
+    await connectToDatabase()
     const { blogId } = await params
-    const res = await Blog.findById(blogId)
-    console.log({ res })
-
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Blog fetched successful",
-        res,
-      },
-      { status: 200 }
-    )
+    const res = await Blog.findById(blogId).populate("authorId")
+    return SendResponse(201, true, "Blog fetched successfully", res)
   } catch (error: any) {
-    console.log(error)
-    throw new Error(error.message)
+    return SendResponse(500, false, "Something went wrong", error)
   }
 }
 
@@ -34,23 +26,13 @@ export const PATCH = async (
   { params }: { params: Promise<{ blogId: string }> }
 ) => {
   try {
+    await connectToDatabase()
     const data = await req.json()
     const { blogId } = await params
-
     const res = await Blog.findByIdAndUpdate(blogId, data)
-    console.log({ res })
-
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Blog updated successful",
-        res,
-      },
-      { status: 200 }
-    )
+    return SendResponse(201, true, "Blog updated successfully", res)
   } catch (error: any) {
-    console.log(error)
-    throw new Error(error.message)
+    return SendResponse(500, false, "Something went wrong", error)
   }
 }
 
@@ -59,20 +41,11 @@ export const DELETE = async (
   { params }: { params: Promise<{ blogId: string }> }
 ) => {
   try {
+    await connectToDatabase()
     const { blogId } = await params
     const res = await Blog.findByIdAndDelete(blogId)
-    console.log({ res })
-
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Blog deleted successful",
-        res,
-      },
-      { status: 200 }
-    )
+    return SendResponse(201, true, "Blog deleted successfully", res)
   } catch (error: any) {
-    console.log(error)
-    throw new Error(error.message)
+    return SendResponse(500, false, "Something went wrong", error)
   }
 }

@@ -1,3 +1,5 @@
+import BlogLength from "@/components/shared/BlogLength"
+import PortfolioLength from "@/components/shared/PortfolioLength"
 import { Button } from "@/components/ui/button"
 import { getUser } from "@/utils/actions"
 import { authOptions } from "@/utils/authOptions"
@@ -8,7 +10,7 @@ import Link from "next/link"
 
 const DashboardPage = async () => {
   const session = await getServerSession(authOptions)
-  const user = await getUser(session?.user.email as string)
+  const user = await getUser(session?.user?.email as string)
 
   return (
     <div className="flex flex-col justify-center gap-2 md:gap-5">
@@ -49,9 +51,7 @@ const DashboardPage = async () => {
         <div className="h-96 w-full rounded-3xl p-5 flex items-center justify-center bg-gradient-to-b from-black/80 via-black/70 to-black/60">
           <div className="flex flex-col gap-1 items-center justify-center text-white">
             <div className="flex flex-col items-center gap-5">
-              <span className="text-8xl font-bold">
-                {/* todo: Add portfolios length */} 10
-              </span>
+              <PortfolioLength />
               <span className="text-xl tracking-wider font-bold uppercase">
                 portfolios
               </span>
@@ -69,9 +69,7 @@ const DashboardPage = async () => {
         <div className="h-96 w-full rounded-3xl p-5 flex items-center justify-center bg-gradient-to-b from-black/60 via-black/50 to-black/40 md:from-black/80 md:via-black/70 md:to-black/60">
           <div className="flex flex-col gap-1 items-center justify-center text-white">
             <div className="flex flex-col items-center gap-5">
-              <span className="text-8xl font-bold">
-                {/* todo: Add blogs length */} 10
-              </span>
+              <BlogLength />
               <span className="text-xl tracking-widest font-bold uppercase">
                 all blogs
               </span>
