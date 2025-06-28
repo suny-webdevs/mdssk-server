@@ -28,28 +28,28 @@ const PortfolioClient = ({ id }: IPortfolioClientProps) => {
           height={920}
           className="w-full md:h-96 object-cover object-center md:object-top rounded-3xl"
         />
-        <div className="absolute top-0 left-0 bg-black/80 size-full rounded-3xl flex items-end">
-          <div className="p-5 flex flex-col gap-3">
-            <div>
-              <h1 className="text-white text-4xl">{project?.data.title}</h1>
-              <p className="text-white text-sm italic">
-                {project?.data?.category}
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Link
-                className="text-white bg-white/20 backdrop-blur-lg text-xs px-2 py-1 rounded-lg flex items-center gap-2"
-                href={project?.data?.live}
-              >
-                <Link2 className="size-4" /> Live link
-              </Link>
-              <Link
-                className="text-white bg-white/20 backdrop-blur-lg text-xs px-2 py-1 rounded-lg flex items-center gap-2"
-                href={project?.data?.github}
-              >
-                <FolderGit2 className="size-4" /> Github Repo link
-              </Link>
-            </div>
+      </div>
+      <div className="mt-5">
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <h1 className="text-black text-5xl">{project?.data.title}</h1>
+            <p className="text-black text-base italic">
+              {project?.data?.category}
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <Link
+              className="text-black bg-black/20 backdrop-blur-lg text-xs px-2 py-1 rounded-lg flex items-center gap-2"
+              href={project?.data?.live}
+            >
+              <Link2 className="size-4" /> Live link
+            </Link>
+            <Link
+              className="text-black bg-black/20 backdrop-blur-lg text-xs px-2 py-1 rounded-lg flex items-center gap-2"
+              href={project?.data?.github}
+            >
+              <FolderGit2 className="size-4" /> Github Repo link
+            </Link>
           </div>
         </div>
       </div>

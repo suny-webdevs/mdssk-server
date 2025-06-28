@@ -36,7 +36,7 @@ const BlogClient = ({ id }: { id: string }) => {
       </div>
       <div>
         <h1>{blog?.data?.title}</h1>
-        <div className="flex flex-col md:flex-row md:items-center justify-center md:justify-between my-2 text-gray-500">
+        <div className="flex flex-col justify-center md:justify-between my-2 text-gray-500">
           <span>Author : {blog?.data?.authorId?.role}</span>
           <span>Published on : {blog?.data?.createdAt.split("T")[0]}</span>
         </div>

@@ -27,7 +27,7 @@ const DynamicBlogPage = async ({
 }) => {
   const { id } = await params
   return (
-    <div className="md:w-[90%] md:mx-auto xl:w-[60%]">
+    <div className="md:w-[90%] md:mx-auto xl:w-[60%] my-10">
       <BlogClient id={id} />
     </div>
   )
