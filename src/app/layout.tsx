@@ -4,6 +4,7 @@ import "./globals.css"
 import { Toaster } from "sonner"
 import AuthProvider from "@/providers/AuthProvider"
 import ReduxProvider from "@/providers/ReduxProvider"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +35,7 @@ export default function RootLayout({
           <AuthProvider>
             {children}
             <Toaster />
+            <SpeedInsights />
           </AuthProvider>
         </body>
       </ReduxProvider>
